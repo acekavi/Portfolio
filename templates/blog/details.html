@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<main>
+	<div class="container py-4">
+	  <div class="p-5 mb-4 bg-light rounded-3">
+		<div class="container-fluid py-5">
+		  <h1 class="display-5 fw-bold">{{ post.title }}</h1>
+		  <p class="col-md-8 fs-4">{{ post.author }}</p>
+
+            {{ post.content|safe }}
+			<div class = "col-md-8">
+				{% with comments.count as totalcomments %}
+					<h2>
+						{{ totalcomments }} comment{{ totalcomments|pluralize }}
+					</h2>
+				{% endwith %}
+
+				{% for comment in comments %}
+				
+					Comment {{ forloop.counter }} by {{ comment.name }}
+					before {{ comment.publish|timesince }}
+					{{ comment.content|safe|linebreaks }}
+
+					{% empty %}
+					<p>There no comments for this post.</p>
+
+				{% endfor %}
+			</div>
+
+			<div class = "col-md-8">
+				<h2>Make a new comment</h2>
+				<form action="." method="post" id="comment-form">
+					{{ comment_form.media }}
+					{{ comment_form.as_p }}
+
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-dark">Comment</button>
+				</form>
+			</div>
+		  <a href="../" class="btn btn-outline-dark" role="button">Go Back</a>
+		</div>
+	  </div>
+	</div>
+  </main>
+{% endblock %}
