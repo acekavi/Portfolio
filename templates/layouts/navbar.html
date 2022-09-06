@@ -16,32 +16,37 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link {{ home_page }}" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
+          <a class="nav-link {{ projects_page }}" href="/projects">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Designs</a>
+          <a class="nav-link {{ designs_page }}" href="/designs">Designs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Blog</a>
+          <a class="nav-link {{ blog_page }}" href="/blog">Blog</a>
         </li>
-        <!-- <li class="nav-item dropdown">
+
+        {% if blog_page == 'active' or catList.blog_page == 'active' %}
+        
+        <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="dropdown01"
+            class="nav-link dropdown-toggle {{ catList.blog_page }}"
+            href=""
+            id="category-list"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Settings</a
+            >Category</a
           >
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul class="dropdown-menu" aria-labelledby="category-list">
+            {% for category in category_list %}
+            <li><a class="dropdown-item" href="/blog/filter/{{ category.name}}">
+                  {{ category.name|title }}
+            </a></li>
+            {% endfor %}
           </ul>
-        </li> -->
+        </li>
       </ul>
       <form class="d-flex">
         <input
@@ -53,5 +58,7 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
+
+    {% endif %}
   </div>
 </nav>

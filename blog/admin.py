@@ -15,3 +15,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'content', 'status')
     list_filter = ('status', 'publish')
     search_fields = ('name', 'email', 'content')
+
+
+admin.site.register(models.Category)

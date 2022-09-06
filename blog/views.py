@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewCommentForm
-from .models import Post
+from .models import Category, Post
+
+from django.views.generic import ListView
 
 # Create your views here.
 def blogList(request):
@@ -10,6 +12,7 @@ def blogList(request):
 
     return render(request, 'blog/index.html', {
         'posts' : all_posts,
+        'blog_page' : 'active',
     })
 
 
@@ -35,4 +38,25 @@ def blogDetail(request, post):
         'comments' : user_comment,
         'comments' : comments,
         'comment_form' : comment_form,
+        'blog_page' : 'active',
     })
+
+class CategoryListView(ListView):
+    template_name = 'blog/category.html'
+    context_object_name = 'catList'
+
+    def get_queryset(self):
+        content = {
+            'cat': self.kwargs['category'],
+            'posts': Post.objects.filter(category__name=self.kwargs['category']).filter(status='published'),
+            'blog_page' : 'active',
+        }
+        return content
+
+
+def category_list(request):
+    category_list = Category.objects.exclude(name='default')
+    context = {
+        "category_list": category_list,
+    }
+    return context        
