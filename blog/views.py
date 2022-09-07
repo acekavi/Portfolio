@@ -1,13 +1,14 @@
+from turtle import pos
+from unittest import result
 from django.shortcuts import render, get_object_or_404, redirect
-
-from .forms import NewCommentForm
-from .models import Category, Post
+from django.views.generic import DetailView
+from .forms import NewCommentForm, PostSearchForm
+from .models import Category, Post, Comment
 
 from django.views.generic import ListView
 
 # Create your views here.
 def blogList(request):
-
     all_posts = Post.postManager.all()
 
     return render(request, 'blog/index.html', {
@@ -15,31 +16,37 @@ def blogList(request):
         'blog_page' : 'active',
     })
 
+class BlogDetail(DetailView):
+    template_name= 'blog/details.html'
+    model= Post
+    context_object_name= 'post'
 
-def blogDetail(request, post):
+    def get_context_data(self , **kwargs):
+        data = super().get_context_data(**kwargs)
 
-    post = get_object_or_404(Post, slug = post, status = "published")
-    comments = post.comments.filter(status = True)
+        filteredPost = Post.objects.filter(slug = self.kwargs.get('slug')).first()
+        comments = Comment.objects.filter(post = filteredPost)
 
-    user_comment = None
+        data['post'] = filteredPost
+        data['comments'] = comments
+        data['comment_form'] = NewCommentForm()
+        data['blog_page'] = 'active'
 
-    if request.method == 'POST':
-        comment_form = NewCommentForm(request.POST)
-        if comment_form.is_valid():
-            user_comment = comment_form.save(commit=False)
-            user_comment.post = post
-            user_comment.save()
-            return redirect('.')
-    else:
-        comment_form = NewCommentForm()
+        return data
 
-    return render(request, 'blog/details.html', {
-        'post' : post,
-        'comments' : user_comment,
-        'comments' : comments,
-        'comment_form' : comment_form,
-        'blog_page' : 'active',
-    })
+    def post(self , request , *args , **kwargs):
+        if self.request.method == 'POST':
+            comment_form = NewCommentForm(self.request.POST)
+            if comment_form.is_valid():
+                content = comment_form.cleaned_data['content']
+                try:
+                    parent = comment_form.cleaned_data['parent']
+                except:
+                    parent=None
+
+            new_comment = Comment(content=content , author = self.request.user , post=self.get_object() , parent=parent)
+            new_comment.save()
+            return redirect(self.request.path_info)
 
 class CategoryListView(ListView):
     template_name = 'blog/category.html'
@@ -59,4 +66,31 @@ def category_list(request):
     context = {
         "category_list": category_list,
     }
-    return context        
+    return context
+
+def search_form(request):
+    form = PostSearchForm()
+    context = {
+        'form' : form,
+    }
+    return context
+
+
+def SearchView(request):
+    form = PostSearchForm()
+    sQuery = ''
+    results = []
+
+    if 'q' in request.GET:
+        form = PostSearchForm(request.GET)
+
+        if form.is_valid():
+            sQuery = form.cleaned_data['q']
+            results = Post.objects.filter(title__icontains = sQuery)
+
+    return render(request, 'blog/search.html', {
+        'form' : form,
+        'sQuery' : sQuery,
+        'posts' : results,
+        'blog_page' : 'active',
+    })

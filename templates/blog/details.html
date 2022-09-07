@@ -4,43 +4,79 @@
 {% block content %}
 <main>
 	<div class="container py-4">
-	  <div class="p-5 mb-4 bg-light rounded-3">
-		<div class="container-fluid py-5">
-		  <h1 class="display-5 fw-bold">{{ post.title }}</h1>
-		  <p class="col-md-8 fs-4">{{ post.author }}</p>
+		<div class="mb-4 rounded-3 details-banner-img"
+			style="background: url('https://images.unsplash.com/photo-1661969090887-9797a6a23191?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1178&q=80')">
+		</div>
 
-            {{ post.content|safe }}
-			<div class = "col-md-8">
-				{% with comments.count as totalcomments %}
-					<h2>
-						{{ totalcomments }} comment{{ totalcomments|pluralize }}
-					</h2>
-				{% endwith %}
+	  <div class="p-5 mb-4 bg-dark text-light rounded-3">
+			<div class="container-fluid py-5">
+				<h1 class="display-5 fw-bold">{{ post.title }}</h1>
+				<p class="col-md-8 fs-4">{{ post.author }}</p>
 
-				{% for comment in comments %}
-				
-					Comment {{ forloop.counter }} by {{ comment.name }}
-					before {{ comment.publish|timesince }}
-					{{ comment.content|safe|linebreaks }}
-
-					{% empty %}
-					<p>There no comments for this post.</p>
-
-				{% endfor %}
+					{{ post.content|safe }}
 			</div>
+		</div>
 
-			<div class = "col-md-8">
-				<h2>Make a new comment</h2>
-				<form action="." method="post" id="comment-form">
-					{{ comment_form.as_div }}
 
-					{% csrf_token %}
-					<button type="submit" class="btn btn-outline-dark">Comment</button>
-				</form>
-			</div>
+		<div class="row justify-content-md-center">
+
+			<div class="col-md-8">
+			<h4>Add a comment ({% with comments.count as totalcomments %}{{ totalcomments }}{% endwith %})</h4>
+			{% if user.is_authenticated %}
+      <form action="." method="POST" id="comment-form">
+				<div class="input-group my-3">
+					{{ comment_form.content}}
+					<button class="btn btn-outline-dark" type="submit">Comment</button>
+				</div>
+				{% csrf_token %}
+      </form>
+      {% else %} <h5>You need to Login to comment</h5> 
+      {% endif %}
+
+
+			{% for comment in comments %}
+				{% if comment.is_parent %} 
+					<div class="card mb-3">
+						<div class="p-2">
+							<p class="fs-5">{{ comment.content }}</p>
+							<div class="d-flex justify-content-between text-muted border-bottom fw-light">
+								<p>by @{{ comment.author }}</p>
+								<p>{{ comment.publish|timesince }} ago</p>
+							</div>
+						</div>
+						{% for reply in comment.children %}
+						<div class="p-2 ms-4">
+							<p class="fs-6">{{ reply.content }}</p>
+							<div class="d-flex justify-content-between text-muted border-bottom fw-light">
+								<p>by @{{ reply.author }}</p>
+								<p>{{ reply.publish|timesince }} ago</p>
+							</div>
+						</div>
+						{% endfor %}
+
+						<div class="mx-2">
+						{% if user.is_authenticated %}
+							<form action="." method="post" id="reply-form">
+								<div class="input-group input-group-sm my-3">
+									{{ comment_form.content}}
+									<button class="btn btn-outline-dark" type="submit">Reply</button>
+								</div>
+								
+								<div class="input-group">
+									<input type="hidden" value="{{ comment.pk }}" name="parent">
+									{% csrf_token %}
+								</div>
+							</form>
+						{% else %}
+      			{% endif %}
+						</div>
+				</div>
+				{% endif %}	
+			{% endfor %}
+
+		</div>
+		</div>
 		  <a href="../" class="btn btn-outline-dark" role="button">Go Back</a>
 		</div>
-	  </div>
-	</div>
   </main>
 {% endblock %}

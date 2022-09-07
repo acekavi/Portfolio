@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 ## Category model
 class Category(models.Model):
@@ -45,18 +46,27 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
-## Comment model
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    name = models.CharField(max_length=50)
-    email = models.EmailField()
+    post = models.ForeignKey(Post , on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(get_user_model() , on_delete=models.CASCADE)
     content = models.TextField()
     publish = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self' , null=True , blank=True , on_delete=models.CASCADE , related_name='replies')
     status = models.BooleanField(default=True)
 
     class Meta:
-            ordering = ('publish',)
+        ordering=['-publish']
 
     def __str__(self):
-        return f"Comment by {self.name}"
+        return str(self.author) + ' comment ' + str(self.content)
+
+    @property
+    def children(self):
+        return Comment.objects.filter(parent=self).reverse()
+
+    @property
+    def is_parent(self):
+        if self.parent is None:
+            return True
+        return False
+    

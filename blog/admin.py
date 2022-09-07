@@ -12,9 +12,7 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(models.Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content', 'status')
+    list_display = ('author', 'content', 'status')
     list_filter = ('status', 'publish')
-    search_fields = ('name', 'email', 'content')
-
 
 admin.site.register(models.Category)
