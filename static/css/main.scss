@@ -1,2 +1,47 @@
 @import 'navbar';
 @import 'blog';
+
+body{
+  overflow-x: hidden;
+}
+
+.context-header{
+  background-color: #14161f !important;
+  height: 50vh;
+
+  h1{
+    color: #cecece !important;
+  }
+
+  p{
+    color: #a5a5a5 !important;
+  }
+}
+
+.bg-darkest{
+  background-color: #121212 !important; 
+}
+
+.bg-darker{
+  background-color: #181818 !important;
+}
+
+.bg-dark{
+  background-color: #1B1B1B !important;
+}
+
+.text-lightest{
+  color: rgba(255,255,255, 1) !important;
+}
+
+.text-lighter{
+  color: rgba(255,255,255,0.87) !important;
+}
+
+.text-light{
+  color: rgba(255,255,255,0.60) !important;
+}
+
+.text-read{
+  color: #9c9c9c !important;
+}

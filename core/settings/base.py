@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 
     'blog',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -96,9 +97,11 @@ CKEDITOR_CONFIGS = {
             ['Styles', 'Format'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
-            ['Image', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak'],
+            ['Image', 'Table', 'HorizontalRule'],
             ['TextColor', 'BGColor'],
-        ]
+            ['CodeSnippet'],
+        ],
+        'extraPlugins': 'codesnippet'
     }
 }
 

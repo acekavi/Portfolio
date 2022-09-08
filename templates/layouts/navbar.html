@@ -1,5 +1,10 @@
+{% url 'homepage' as home_url %}
+{% comment %} {% url 'contact' as contact_url %} {% endcomment %}
+{% url 'blog:blog-list' as blog_url %}
+{% url 'blog:category-list' as category_url %}
+
 <nav
-  class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark"
+  class="navbar navbar-expand-lg fixed-top navbar-dark bg-transparent"
   aria-label="Main navigation"
 >
   <div class="container-fluid">
@@ -14,49 +19,51 @@
     </button>
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
         <li class="nav-item">
-          <a class="nav-link {{ home_page }}" href="/">Home</a>
+          <a class="nav-link {% if request.path == home_url %} active {%endif%}" href="{{ home_url }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ projects_page }}" href="/projects">Projects</a>
+          <a class="nav-link {% if request.path == blogList_url %} active {%endif%}" href="/projects">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ designs_page }}" href="/designs">Designs</a>
+          <a class="nav-link {% if request.path == blogList_url %} active {%endif%}" href="/designs">Designs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ blog_page }}" href="/blog">Blog</a>
+          <a class="nav-link {% if request.path == blog_url %} active {%endif%}" href="{{ blog_url }}">Blog</a>
         </li>
 
-        {% if blog_page == 'active' or catList.blog_page == 'active' %}
+        {% if navBlog or catList.navBlog %}
         
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle {{ catList.blog_page }}"
+            class="nav-link dropdown-toggle"
             href=""
             id="category-list"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             >Category</a
           >
-          <ul class="dropdown-menu" aria-labelledby="category-list">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="category-list">
             {% for category in category_list %}
-            <li><a class="dropdown-item" href="/blog/filter/{{ category.name}}">
+            <li><a class="dropdown-item" href="{% url 'blog:category-list' slug=category.name %}">
                   {{ category.name|title }}
             </a></li>
             {% endfor %}
           </ul>
         </li>
       </ul>
-      <form class="d-flex" method="GET" action="/blog/search/">
+      <form class="d-flex dropdown" method="GET" action="{% url 'blog:search-list' %}">
         <input
-          class="form-control me-2"
+          class="form-control me-2 text-lightest bg-dark"
           type = "search"
           name = "q"
           placeholder = "Search"
           aria-label = "Search"
+          autocomplete="off"
           required
         />
+
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
     </div>

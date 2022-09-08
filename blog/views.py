@@ -13,7 +13,7 @@ def blogList(request):
 
     return render(request, 'blog/index.html', {
         'posts' : all_posts,
-        'blog_page' : 'active',
+        'navBlog' : True,
     })
 
 class BlogDetail(DetailView):
@@ -30,7 +30,6 @@ class BlogDetail(DetailView):
         data['post'] = filteredPost
         data['comments'] = comments
         data['comment_form'] = NewCommentForm()
-        data['blog_page'] = 'active'
 
         return data
 
@@ -54,9 +53,9 @@ class CategoryListView(ListView):
 
     def get_queryset(self):
         content = {
-            'cat': self.kwargs['category'],
-            'posts': Post.objects.filter(category__name=self.kwargs['category']).filter(status='published'),
-            'blog_page' : 'active',
+            'cat': self.kwargs['slug'],
+            'posts': Post.objects.filter(category__name=self.kwargs['slug']).filter(status='published'),
+            'navBlog' : True,
         }
         return content
 
@@ -65,13 +64,6 @@ def category_list(request):
     category_list = Category.objects.exclude(name='default')
     context = {
         "category_list": category_list,
-    }
-    return context
-
-def search_form(request):
-    form = PostSearchForm()
-    context = {
-        'form' : form,
     }
     return context
 
@@ -92,5 +84,5 @@ def SearchView(request):
         'form' : form,
         'sQuery' : sQuery,
         'posts' : results,
-        'blog_page' : 'active',
+        'navBlog' : True,
     })

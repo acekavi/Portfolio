@@ -4,16 +4,27 @@
 {% block content %}
 <main>
 	<div class="container py-4">
+		<header class="pb-3 mb-4 border-bottom">
+			<div class="d-flex align-items-center text-decoration-none text-white">
+				<i class="fa-solid fa-signs-post fa-xl me-2"></i>
+				<span class="fs-4 text-uppercase">{{ post.title }}</span>
+			</div>
+		</header>
+
 		<div class="mb-4 rounded-3 details-banner-img"
 			style="background: url('https://images.unsplash.com/photo-1661969090887-9797a6a23191?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1178&q=80')">
 		</div>
 
-	  <div class="p-5 mb-4 bg-dark text-light rounded-3">
+	  <div class="p-5 mb-4 bg-darker rounded-3">
 			<div class="container-fluid py-5">
-				<h1 class="display-5 fw-bold">{{ post.title }}</h1>
-				<p class="col-md-8 fs-4">{{ post.author }}</p>
-
+				<div class="text-read">
 					{{ post.content|safe }}
+				</div>
+
+				
+				<div class="fs-6 text-lighter text-end">
+					by @{{ post.author }} on {{ post.publish|date:"SHORT_DATE_FORMAT" }}
+				</div>
 			</div>
 		</div>
 
@@ -21,12 +32,12 @@
 		<div class="row justify-content-md-center">
 
 			<div class="col-md-8">
-			<h4>Add a comment ({% with comments.count as totalcomments %}{{ totalcomments }}{% endwith %})</h4>
+			<h4 class="text-light">Add a comment ({% with comments.count as totalcomments %}{{ totalcomments }}{% endwith %})</h4>
 			{% if user.is_authenticated %}
       <form action="." method="POST" id="comment-form">
 				<div class="input-group my-3">
 					{{ comment_form.content}}
-					<button class="btn btn-outline-dark" type="submit">Comment</button>
+					<button class="btn btn-outline-light" type="submit">Comment</button>
 				</div>
 				{% csrf_token %}
       </form>
@@ -36,9 +47,9 @@
 
 			{% for comment in comments %}
 				{% if comment.is_parent %} 
-					<div class="card mb-3">
+					<div class="card mb-3 bg-dark border-0">
 						<div class="p-2">
-							<p class="fs-5">{{ comment.content }}</p>
+							<p class="fs-5 text-light">{{ comment.content }}</p>
 							<div class="d-flex justify-content-between text-muted border-bottom fw-light">
 								<p>by @{{ comment.author }}</p>
 								<p>{{ comment.publish|timesince }} ago</p>
@@ -46,7 +57,7 @@
 						</div>
 						{% for reply in comment.children %}
 						<div class="p-2 ms-4">
-							<p class="fs-6">{{ reply.content }}</p>
+							<p class="fs-6 text-light">{{ reply.content }}</p>
 							<div class="d-flex justify-content-between text-muted border-bottom fw-light">
 								<p>by @{{ reply.author }}</p>
 								<p>{{ reply.publish|timesince }} ago</p>
@@ -59,7 +70,7 @@
 							<form action="." method="post" id="reply-form">
 								<div class="input-group input-group-sm my-3">
 									{{ comment_form.content}}
-									<button class="btn btn-outline-dark" type="submit">Reply</button>
+									<button class="btn btn-outline-light" type="submit">Reply</button>
 								</div>
 								
 								<div class="input-group">
@@ -67,7 +78,6 @@
 									{% csrf_token %}
 								</div>
 							</form>
-						{% else %}
       			{% endif %}
 						</div>
 				</div>
@@ -76,7 +86,7 @@
 
 		</div>
 		</div>
-		  <a href="../" class="btn btn-outline-dark" role="button">Go Back</a>
+		  <a href="{% url 'blog:blog-list' %}" class="btn btn-outline-light" role="button">Go Back</a>
 		</div>
   </main>
 {% endblock %}
