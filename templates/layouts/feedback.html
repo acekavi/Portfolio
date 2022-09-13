@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ title }}{%endblock %} 
+{% block content %}
+
+<div class="container w-100 text-center">
+  <main class="pt-5 mt-5">
+    <h1 class="text-lightest text-uppercase py-2 mt-5 border-bottom d-inline-block">{{title}}</h1>
+    <p class="lead text-lighter mt-5 font-monospace mx-auto" style="max-width: 50vw;">{{ context }}</p>
+    <p class="lead mt-5">
+      <a href="{% url 'homepage' %}" class="btn btn-outline-light text-uppercase">Home</a>
+    </p>
+  </main>
+</div>
+
+{% if redirect_authenticated_user and request.user.is_authenticated %}
+  <script>
+    window.location.href = "{% url 'accounts:profile' %}";
+  </script>
+{% endif %} 
+{% endblock %}

@@ -2,39 +2,38 @@
 {% load static %} 
 {% block title %}Search{% endblock %}
 {% block content %}
-<main>
-	<div class="container py-4">
-	  <header class="pb-3 mb-4 border-bottom">
-		<div class="d-flex align-items-center text-lightest text-decoration-none">
-			<i class="fa-solid fa-signs-post fa-xl me-2"></i>
-			
-			{% if sQuery %}
-			<span class="fs-4 text-uppercase">
-				{% with posts.count as total_posts %}
-        Found {{ total_posts }} result{{ total_posts|pluralize }} for "{{ sQuery }}"
-        {% endwith %}
-			</span>
-			{% endif %}
 
-		</div>
-	  </header>
-  
-	  <div class="row align-items-md-stretch">
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-lightest text-decoration-none">
+		<i class="fa-solid fa-signs-post fa-xl me-2"></i>
+		
+		{% if sQuery %}
+		<span class="fs-4 text-uppercase">
+			{% with posts.count as total_posts %}
+			Found {{ total_posts }} result{{ total_posts|pluralize }} for "{{ sQuery }}"
+			{% endwith %}
+		</span>
+		{% endif %}
 
-			{% for post in posts %}
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="h-100 p-5 bg-dark rounded-3">
-						<h1 class="text-lightest">{{ post.title }}</h1>
-						<div class="text-light">
-							{{ post.content|safe|truncatechars:250 }}
-						</div>
-						<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-  
-	  
 	</div>
-  </main>
+	</header>
+
+	<div class="row align-items-md-stretch">
+
+		{% for post in posts %}
+			<div class="col-lg-4 col-md-6 mb-4">
+				<div class="h-100 p-5 bg-dark rounded-3">
+					<h1 class="text-lightest">{{ post.title }}</h1>
+					<div class="text-light">
+						{{ post.content|safe|truncatechars:250 }}
+					</div>
+					<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	
+</div>
 {% endblock %}

@@ -2,24 +2,38 @@
 {% comment %} {% url 'contact' as contact_url %} {% endcomment %}
 {% url 'blog:blog-list' as blog_url %}
 {% url 'blog:category-list' as category_url %}
+{% load static %}
 
-<nav
-  class="navbar navbar-expand-lg fixed-top navbar-dark bg-transparent"
-  aria-label="Main navigation"
->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+  <!-- Container wrapper -->
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">acekavi.me</a>
+    <!-- Toggle button -->
     <button
-      class="navbar-toggler p-0 border-0"
+      class="navbar-toggler"
       type="button"
-      id="navbarSideCollapse"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <i class="fas fa-bars"></i>
     </button>
 
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img
+          src="{% static 'images/logo/Sign.png' %}"
+          height="15"
+          alt="acekavi Logo"
+          loading="lazy"
+        />
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link {% if request.path == home_url %} active {%endif%}" href="{{ home_url }}">Home</a>
         </li>
@@ -34,40 +48,101 @@
         </li>
 
         {% if navBlog or catList.navBlog %}
-        
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href=""
-            id="category-list"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Category</a
-          >
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="category-list">
-            {% for category in category_list %}
-            <li><a class="dropdown-item" href="{% url 'blog:category-list' slug=category.name %}">
-                  {{ category.name|title }}
-            </a></li>
-            {% endfor %}
-          </ul>
-        </li>
+        <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Category
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+              {% for category in category_list %}
+                <li><a class="dropdown-item" href="{% url 'blog:category-list' slug=category.name %}">
+                      {{ category.name|title }}
+                </a></li>
+                {% endfor %}
+            </ul>
+          </li>
+        {% endif %}
       </ul>
-      <form class="d-flex dropdown" method="GET" action="{% url 'blog:search-list' %}">
-        <input
-          class="form-control me-2 text-lightest bg-dark"
-          type = "search"
-          name = "q"
-          placeholder = "Search"
-          aria-label = "Search"
-          autocomplete="off"
-          required
-        />
-
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      <!-- Left links -->
     </div>
+    <!-- Collapsible wrapper -->
 
-    {% endif %}
+
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+
+      {% if navBlog or catList.navBlog %}
+        <form class="d-flex input-group w-auto" method="GET" action="{% url 'blog:search-list' %}">
+          <input
+            type="search"
+            name = "q"
+            class="form-control rounded bg-dark form-white"
+            placeholder="Search"
+            aria-label="Search"
+            aria-describedby="search-addon"
+            autocomplete="off"
+            required
+          />
+          <span class="input-group-text border-0" id="search-addon">
+            <button class="btn btn-transaprent btn-floating text-light" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </span>
+        </form>
+      {% endif %}
+
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        <span class="material-symbols-outlined text-light">
+          account_circle
+          </span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile' %}">My Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:edit' %}">Edit Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+            </li>
+
+          {% else %}
+            
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:register' %}">Signup</a>
+            </li>
+          
+          {% endif %}
+          
+        </ul>
+      </div>
+    </div>
+    <!-- Right elements -->
   </div>
+  <!-- Container wrapper -->
 </nav>
+<!-- Navbar -->

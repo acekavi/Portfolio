@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Hello {{ user.get_username }},
+
+To reset your password go to the link below.
+
+{{ protocol }}://{{ domain }}{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
+
+{% endautoescape %}

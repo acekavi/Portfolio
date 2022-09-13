@@ -1,0 +1,123 @@
+{% extends "layouts/base.html" %} 
+{% block title %}{{ title }}{%endblock %}
+{% load static %}
+{% block content %}
+{% url 'accounts:password_change' as pwd_change_url %}
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:register' as register_url %}
+{% url 'accounts:edit' as edit_url %}
+
+<div class="container-full halfImg">
+  <div class="row col-12">
+    <div class="col-md-6 bg-darkest py-5 d-flex justify-content-center align-content-center" style="min-height: 100vh;">
+      <div class="col-10 align-self-center bg-darker text-lighter px-5 rounded-5">
+
+      <form class="py-5 main-form" method="{{ method }}" action="">
+
+        <h3 class="text-lightest ">{{ title }}</h3>
+        <p class="text-muted fs-6 pb-3">{{ secondary }}</p>
+        {% csrf_token %}
+        {{ form.as_div }}
+        <!-- Submit button -->
+        <div>
+          <button type="submit" class="btn btn-light btn-block" data-mdb-ripple-color="dark">{{ title }}</button>
+        </div>
+
+        {% if request.path == login_url %}
+          <hr class='my-4'>
+
+          <!-- 2 column grid layout for inline styling -->
+            <div class="col">
+              <!-- Simple link -->
+              <a href="{% url 'accounts:password_reset' %}" >Forgot password?</a>
+            </div>
+
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Not a member?</p>
+            <p><a href="{% url 'accounts:register' %}">Register</a> or sign up with</p>
+            <button type="button" class="btn btn-light btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+        
+            <button type="button" class="btn btn-light btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+        
+            <button type="button" class="btn btn-light btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+        
+            <button type="button" class="btn btn-light btn-floating mx-1">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
+        {% endif %}
+
+        {% if request.path == register_url %}
+        <hr class='my-4'>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Already a member?</p>
+          <p><a href="{% url 'accounts:login' %}">Login</a> or sign up with</p>
+          <button type="button" class="btn btn-light btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+      
+          <button type="button" class="btn btn-light btn-floating mx-1">
+            <i class="fab fa-google"></i>
+          </button>
+      
+          <button type="button" class="btn btn-light btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+      
+          <button type="button" class="btn btn-light btn-floating mx-1">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+        {% endif %}
+
+        {% if request.path == edit_url %}
+        <hr class='my-4'>
+
+        <div class="btn-group shadow-0 w-100" role="group">
+          <a href="{% url 'accounts:password_change' %}" class="btn btn-danger" data-mdb-color="dark">Change Password</a>
+          <a href="{% url 'accounts:delete_user' %}" class="btn btn-danger" data-mdb-color="dark">Delete Account</a>
+        </div>
+        {% endif %}
+
+
+      </form>
+    </div>
+    </div>
+
+    <div class="col-md-6 d-none d-md-block d-lg-block">
+
+    </div>
+  </div>
+
+</div>
+<script>
+  $(document).ready(function(){
+    $('.main-form div').addClass('form-outline my-4');
+    $('.main-form div input').addClass('form-control bg-darkest text-lighter');
+    $('.main-form div input').attr('autocomplete', 'off')
+    $('.main-form div label').addClass('form-label text-lighter').each((index, element)=>{
+      $(element).text((index, text) => {return text.slice(0,-1)});
+    });
+    $(".main-form div").each((index, element)=>{
+      $(element).children("input, textarea").eq(0).insertBefore($(element).children("label").eq(0))
+    })
+    $('.errorlist').addClass('list-unstyled').children('li').addClass("note note-danger text-dark my-3");
+    
+  });
+  
+</script>
+{% if redirect_authenticated_user and request.user.is_authenticated %}
+  <script>
+    window.location.href = "{% url 'accounts:profile' %}";
+  </script>
+{% endif %} 
+{% endblock %}  

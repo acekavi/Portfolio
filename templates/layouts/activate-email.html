@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Hello {{ user.username }},
+
+To activate your password go to the link below.
+
+{{ protocol }}://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}
+
+{% endautoescape %}

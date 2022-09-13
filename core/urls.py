@@ -23,9 +23,10 @@ from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('account/', include('django.contrib.auth.urls')),
 	path(_('ckeditor/'), include('ckeditor_uploader.urls')),
 
+	path("user/", include('accounts.urls', namespace="accounts")),
+	path('user/', include('django.contrib.auth.urls')),
 	path('', HomePageView.as_view(), name="homepage"),
 	path('blog/', include('blog.urls', namespace='blog')),
 ]

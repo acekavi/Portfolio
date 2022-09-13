@@ -2,37 +2,35 @@
 {% load static %} 
 {% block title %}All Blogs{% endblock %}
 {% block content %}
-<main>
-	<div class="container py-4">
-	  <header class="pb-3 mb-4 border-bottom">
-		<div class="d-flex align-items-center text-decoration-none text-white">
-			<i class="fa-solid fa-signs-post fa-xl me-2"></i>
-			<span class="fs-4 text-uppercase">All posts</span>
-		</div>
-	  </header>
-  
-	  <div class="p-5 mb-4 context-header rounded-3">
-		<div class="container-fluid py-5">
-		  <h1 class="display-5 fw-bold text-lightest">Custom jumbotron</h1>
-		  <p class="col-md-8 fs-4 text-light">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-		</div>
-	  </div>
-  
-	  <div class="row align-items-md-stretch">
-			{% for post in posts %}
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="h-100 p-5 bg-dark rounded-3">
-						<h1 class="text-lighter">{{ post.title }}</h1>
-						<div class="text-light">
-							{{ post.content|safe|truncatechars:250 }}
-						</div>
-						<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-  
-	  
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-decoration-none text-white">
+		<i class="fa-solid fa-signs-post fa-xl me-2"></i>
+		<span class="fs-4 text-uppercase">All posts</span>
 	</div>
-  </main>
+	</header>
+
+	<div class="p-5 mb-4 context-header rounded-3">
+	<div class="container-fluid py-5">
+		<h1 class="display-5 fw-bold text-lightest">Custom jumbotron</h1>
+		<p class="col-md-8 fs-4 text-light">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+	</div>
+	</div>
+
+	<div class="row align-items-md-stretch">
+		{% for post in posts %}
+			<div class="col-lg-4 col-md-6 mb-4">
+				<div class="h-100 p-5 bg-dark rounded-3">
+					<h1 class="text-lighter">{{ post.title }}</h1>
+					<div class="text-light">
+						{{ post.content|safe|truncatechars:250 }}
+					</div>
+					<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	
+</div>
 {% endblock %}

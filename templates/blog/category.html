@@ -2,30 +2,28 @@
 {% load static %} 
 {% block title %}{{ catList.cat }}{% endblock %}
 {% block content %}
-<main>
-	<div class="container py-4">
-	  <header class="pb-3 mb-4 border-bottom">
-		<div class="d-flex align-items-center text-lightest text-decoration-none">
-			<i class="fa-solid fa-signs-post fa-xl me-2"></i>
-			<span class="fs-4 text-uppercase">Explore more on {{ catList.cat }}</span>
-		</div>
-	  </header>
-  
-	  <div class="row align-items-md-stretch">
-			{% for post in catList.posts %}
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="h-100 p-5 bg-dark rounded-3">
-						<h1 class="text-lightest">{{ post.title }}</h1>
-						<div class="text-light">
-							{{ post.content|safe|truncatechars:250 }}
-						</div>
-						<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-  
-	  
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-lightest text-decoration-none">
+		<i class="fa-solid fa-signs-post fa-xl me-2"></i>
+		<span class="fs-4 text-uppercase">Explore more on {{ catList.cat }}</span>
 	</div>
-  </main>
+	</header>
+
+	<div class="row align-items-md-stretch">
+		{% for post in catList.posts %}
+			<div class="col-lg-4 col-md-6 mb-4">
+				<div class="h-100 p-5 bg-dark rounded-3">
+					<h1 class="text-lightest">{{ post.title }}</h1>
+					<div class="text-light">
+						{{ post.content|safe|truncatechars:250 }}
+					</div>
+					<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	
+</div>
 {% endblock %}

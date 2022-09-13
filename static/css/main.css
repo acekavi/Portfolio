@@ -26,19 +26,17 @@
   background-position: center center;
 }
 
-body {
-  overflow-x: hidden;
+.halfImg {
+  background-image: url("https://images.pexels.com/photos/997443/pexels-photo-997443.jpeg") !important;
+  background-image: initial;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-.context-header {
-  background-color: #14161f !important;
-  height: 50vh;
-}
-.context-header h1 {
-  color: #cecece !important;
-}
-.context-header p {
-  color: #a5a5a5 !important;
+.container-full {
+  max-width: 100%;
 }
 
 .bg-darkest {
@@ -67,4 +65,8 @@ body {
 
 .text-read {
   color: #9c9c9c !important;
+}
+
+body {
+  overflow-x: hidden;
 }/*# sourceMappingURL=main.css.map */
