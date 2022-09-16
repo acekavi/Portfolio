@@ -22,7 +22,8 @@ from . import settings
 from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
+	path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+  path('tubelight/', admin.site.urls),
 	path(_('ckeditor/'), include('ckeditor_uploader.urls')),
 
 	path("user/", include('accounts.urls', namespace="accounts")),
@@ -30,6 +31,8 @@ urlpatterns = [
 	path('', HomePageView.as_view(), name="homepage"),
 	path('blog/', include('blog.urls', namespace='blog')),
 ]
+
+handler404 = 'admin_honeypot.views.handler404'
 
 if settings.dev.DEBUG:
 	urlpatterns += [

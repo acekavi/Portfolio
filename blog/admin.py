@@ -16,3 +16,4 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('status', 'publish')
 
 admin.site.register(models.Category)
+admin.site.register(models.Series)

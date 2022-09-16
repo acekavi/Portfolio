@@ -1,3 +1,4 @@
+from statistics import mode
 from django.utils import timezone
 from django.db import models
 from ckeditor.fields import RichTextField
@@ -13,10 +14,15 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+## Series model
+class Series(models.Model):
+    name = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
 
 ##  Post model
 class Post(models.Model):
-
     class PostManager(models.Manager):
         def get_queryset(self):
             return super().get_queryset().filter(status='published')
@@ -28,11 +34,15 @@ class Post(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
+    overview = models.TextField(max_length=500, default="")
+    blog_series = models.ForeignKey(Series, on_delete=models.PROTECT, default=1)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
     publish = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey (User, on_delete=models.CASCADE, related_name='blog_posts')
     content = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=options, default='draft')
+    favorites = models.ManyToManyField(User, related_name='favorite', default=None, blank=True)
+    likes = models.ManyToManyField(User, related_name="Likes", default=None, blank=True)
 
     objects = models.Manager()
     postManager = PostManager()

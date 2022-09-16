@@ -3,16 +3,45 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <div class="container py-4">
-	<header class="pb-3 mb-4 border-bottom">
-		<div class="d-flex align-items-center text-decoration-none text-white">
-			<i class="fa-solid fa-signs-post fa-xl me-2"></i>
-			<span class="fs-4 text-uppercase">{{ post.title }}</span>
-		</div>
-	</header>
-
 	<div class="mb-4 rounded-3 details-banner-img"
 		style="background: url('https://images.unsplash.com/photo-1661969090887-9797a6a23191?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1178&q=80')">
 	</div>
+
+	<header class="pb-3 mb-4 border-bottom d-flex justify-content-between text-white">
+		<div class="d-flex align-items-center text-decoration-none">
+			<span class="material-symbols-outlined fs-3 me-2">
+				<i class="fa-solid fa-signs-post"></i>
+			</span>
+			<span class="fs-4 text-uppercase">{{ post.title }}</span>
+		</div>
+		<div class="me-3">
+			<div>
+
+			{% if request.user in post.likes.all %}
+				<a href="{% url 'blog:likes' post.id %}" class="fs-4 me-4 text-danger" data-mdb-toggle="tooltip" title="Dislike">
+					<i class="fa-solid fa-heart"></i>
+					<span class="badge rounded-pill badge-notification bg-danger">{{likeCount}}
+				</span></a>
+			{% else %}
+				<a href="{% url 'blog:likes' post.id %}" class="fs-4 me-4 text-secondary" data-mdb-toggle="tooltip" title="Like">
+					<i class="fa-regular fa-heart"></i>
+					<span class="badge rounded-pill badge-notification bg-danger">{{likeCount}}
+				</span></a>
+			{% endif %}
+
+			{% if request.user in post.favorites.all %}
+			<a href="{% url 'blog:favorites' post.id %}" class="fs-4 text-light" data-mdb-toggle="tooltip" title="Remove this post from bookmarks">
+					<i class="fa-solid fa-bookmark"></i>
+			</a>
+			{% else %}
+			<a href="{% url 'blog:favorites' post.id %}" class="fs-4 text-secondary" data-mdb-toggle="tooltip" title="Add this post to bookmarks">
+					<i class="fa-regular fa-bookmark"></i>
+			</a>
+			{% endif %}
+			</div>
+		</div>
+
+	</header>
 
 	<div class="p-5 mb-4 bg-darker rounded-3">
 		<div class="container-fluid py-5">
@@ -31,22 +60,25 @@
 	<div class="row justify-content-md-center">
 
 		<div class="col-md-8">
-			<h4 class="text-light">Add a comment ({% with comments.count as totalcomments %}{{ totalcomments }}{% endwith %})</h4>
+			<h4 class="text-light">{% with comments.count as totalcomments %}Comment{{ totalcomments|pluralize }} ({{ totalcomments }}){% endwith %}</h4>
 			{% if user.is_authenticated %}
 			<form action="." method="POST" id="comment-form">
-				<div class="input-group my-3">
+				<label for="id_content" class="form-label text-light mt-3">Add new comment</label>
+				<div class="input-group mb-5">
 					{{ comment_form.content}}
-					<button class="btn btn-outline-light" type="submit">Comment</button>
+					<button class="btn btn-outline-light" type="submit" id="comment-btn" data-mdb-ripple-color="light">
+						Comment
+					</button>
 				</div>
 				{% csrf_token %}
 			</form>
-			{% else %} <h5>You need to Login to comment</h5> 
+			{% else %} <h5 class="text-lighter py-3">You need to <a href="{% url 'accounts:login' %}">Login</a> to comment</h5> 
 			{% endif %}
 
 
 		{% for comment in comments %}
 			{% if comment.is_parent %} 
-				<div class="card mb-3 bg-dark border-0">
+				<div class="card mb-3 p-3 bg-dark border-0">
 					<div class="p-2">
 						<p class="fs-5 text-light">{{ comment.content }}</p>
 						<div class="d-flex justify-content-between text-muted border-bottom fw-light">
@@ -67,9 +99,12 @@
 					<div class="mx-2">
 					{% if user.is_authenticated %}
 						<form action="." method="post" id="reply-form">
-							<div class="input-group input-group-sm my-3">
+							<div class="input-group my-3">
+								<span class="input-group-text border-0">Reply</span>
 								{{ comment_form.content}}
-								<button class="btn btn-outline-light" type="submit">Reply</button>
+								<button class="btn btn-outline-light" type="submit" id="comment-btn" data-mdb-ripple-color="light">
+									Reply
+								</button>
 							</div>
 							
 							<div class="input-group">

@@ -9,12 +9,15 @@ from django.contrib.auth.models import User
 
 from .forms import RegistrationForm, UserEditForm
 from .tokens import account_activation_token
+from blog.models import Post
 
 # Create your views here.
 @login_required
 def profile(request):
+  savedPosts = Post.postManager.filter(favorites=request.user)
   return render(request,'accounts/profile.html', {
     'section' : 'profile',
+    'saved' : savedPosts,
   })
 
 @login_required

@@ -12,15 +12,7 @@
 
 	<div class="row align-items-md-stretch">
 		{% for post in catList.posts %}
-			<div class="col-lg-4 col-md-6 mb-4">
-				<div class="h-100 p-5 bg-dark rounded-3">
-					<h1 class="text-lightest">{{ post.title }}</h1>
-					<div class="text-light">
-						{{ post.content|safe|truncatechars:250 }}
-					</div>
-					<a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
-				</div>
-			</div>
+			{% include 'blog/blog-post.html' %}
 		{% endfor %}
 	</div>
 

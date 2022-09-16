@@ -2,5 +2,26 @@
 {% load static %} 
 {% block title %}Profile{%endblock %} 
 {% block content %}
-  <h1>User Dashboard</h1>
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <div class="d-flex align-items-center text-decoration-none text-white">
+            <i class="fa-solid fa-user-astronaut fa-xl me-2"></i>
+            <span class="fs-4 text-uppercase">Welcome back, {{ user.username|capfirst }}</span>
+        </div>
+    </header>
+
+    <div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold text-lightest">Favorites</h1>
+            <p class="col-md-8 fs-4 text-light">You can find all the posts you have bookmarked here.</p>
+        </div>
+    </div>
+  <div>
+      <div class="row">
+          {% for post in saved %}
+            {% include 'blog/blog-post.html' %}
+          {% endfor %}
+      </div>
+  </div>
+</div>
 {% endblock %}

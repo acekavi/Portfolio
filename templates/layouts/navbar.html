@@ -108,9 +108,10 @@
           data-mdb-toggle="dropdown"
           aria-expanded="false"
         >
-        <span class="material-symbols-outlined text-light">
-          account_circle
-          </span>
+        <span class="material-symbols-outlined text-light me-3" data-mdb-toggle="tooltip" title="{% if user.is_authenticated %}Hi, 
+        {{ user.username|capfirst }}{% else %}Account{% endif %}">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </span>
         </a>
         <ul
           class="dropdown-menu dropdown-menu-end dropdown-menu-dark"

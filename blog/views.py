@@ -1,20 +1,19 @@
-from turtle import pos
-from unittest import result
-from django.shortcuts import render, get_object_or_404, redirect
+from re import template
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.views.generic import DetailView
 from .forms import NewCommentForm, PostSearchForm
 from .models import Category, Post, Comment
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.views.generic import ListView
 
 # Create your views here.
-def blogList(request):
-    all_posts = Post.postManager.all()
+class blogList(ListView):
+    template_name = 'blog/index.html'
+    model= Post
+    context_object_name ='posts'
+    paginate_by = 6
 
-    return render(request, 'blog/index.html', {
-        'posts' : all_posts,
-        'navBlog' : True,
-    })
 
 class BlogDetail(DetailView):
     template_name= 'blog/details.html'
@@ -30,6 +29,7 @@ class BlogDetail(DetailView):
         data['post'] = filteredPost
         data['comments'] = comments
         data['comment_form'] = NewCommentForm()
+        data['likeCount'] = filteredPost.likes.all().count()
 
         return data
 
@@ -78,7 +78,11 @@ def SearchView(request):
 
         if form.is_valid():
             sQuery = form.cleaned_data['q']
-            results = Post.objects.filter(title__icontains = sQuery)
+            # results = Post.objects.filter(title__search = sQuery)
+            # results = Post.objects.annotate(search=SearchVector('title', 'content'),).filter(search=SearchQuery(sQuery))
+            vector = SearchVector('title', weight='A') + SearchVector('content', weight='B')
+            query=SearchQuery(sQuery)
+            results = Post.objects.annotate(rank=SearchRank(vector,query,cover_density=True)).order_by('-rank')
 
     return render(request, 'blog/search.html', {
         'form' : form,
@@ -86,3 +90,21 @@ def SearchView(request):
         'posts' : results,
         'navBlog' : True,
     })
+
+@login_required
+def favorites(request, id):
+    post = get_object_or_404(Post, id=id)
+    if post.favorites.filter(id=request.user.id).exists():
+        post.favorites.remove(request.user)
+    else:
+        post.favorites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+@login_required
+def likes(request, id):
+    post = Post.objects.filter(id=id).first()
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

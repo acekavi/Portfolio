@@ -9,8 +9,10 @@ class NewCommentForm(forms.ModelForm):
         model = Comment
         fields = ['content','parent']
         widgets = {
-            'content' : forms.Textarea(attrs={'class': 'form-control',
-                                              'rows' : '2',
+            'content' : forms.Textarea(attrs={'class': 'form-control rounded bg-darker text-light',
+                                              'aria-label': "Comment",
+                                              'aria-describedby':"comment-btn",
+                                              'style': "min-height:50px;"
                                               }),
         }
 
