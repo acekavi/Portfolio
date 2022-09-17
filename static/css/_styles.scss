@@ -29,3 +29,19 @@
 body{
   overflow-x: hidden;
 }
+
+.quote {
+  &::after {
+    font-family: Arial;
+    content: "\201D";
+    font-weight: 600;
+    font-size: larger;
+  }
+
+  &::before {
+    font-family: Arial;
+    content: "\201C";
+    font-weight: 600;
+    font-size: larger;
+  }
+}

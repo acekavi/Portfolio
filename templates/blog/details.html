@@ -2,9 +2,11 @@
 {% load static %} 
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
+{% load humanize %}
+
 <div class="container py-4">
 	<div class="mb-4 rounded-3 details-banner-img"
-		style="background: url('https://images.unsplash.com/photo-1661969090887-9797a6a23191?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1178&q=80')">
+		style="background: url('https://source.unsplash.com/1600x500/?tech')">
 	</div>
 
 	<header class="pb-3 mb-4 border-bottom d-flex justify-content-between text-white">
@@ -16,16 +18,14 @@
 		</div>
 		<div class="me-3">
 			<div>
-
+				<p class="text-secondary d-inline fs-4">{{ post.likes.all|length|intcomma }}</p>
 			{% if request.user in post.likes.all %}
 				<a href="{% url 'blog:likes' post.id %}" class="fs-4 me-4 text-danger" data-mdb-toggle="tooltip" title="Dislike">
 					<i class="fa-solid fa-heart"></i>
-					<span class="badge rounded-pill badge-notification bg-danger">{{likeCount}}
 				</span></a>
 			{% else %}
 				<a href="{% url 'blog:likes' post.id %}" class="fs-4 me-4 text-secondary" data-mdb-toggle="tooltip" title="Like">
 					<i class="fa-regular fa-heart"></i>
-					<span class="badge rounded-pill badge-notification bg-danger">{{likeCount}}
 				</span></a>
 			{% endif %}
 
@@ -40,18 +40,27 @@
 			{% endif %}
 			</div>
 		</div>
-
 	</header>
 
+	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+		<div class="container-fluid ">
+			<h3 class="display-5 fw-bold text-lightest">Overview</h3>
+			<p class="fs-5 text-light">{{ post.overview|capfirst }}</p>
+			<hr>
+			<p class="col-md-8 fs-5 text-light">Part of the <span class="fw-bold text-lighter">"{{ post.series|capfirst }}"</span> series</p>
+
+		</div>
+	</div>
+
 	<div class="p-5 mb-4 bg-darker rounded-3">
-		<div class="container-fluid py-5">
+		<div class="container-fluid">
 			<div class="text-read">
 				{{ post.content|safe }}
 			</div>
 
 			
 			<div class="fs-6 text-lighter text-end">
-				by @{{ post.author }} on {{ post.publish|date:"SHORT_DATE_FORMAT" }}
+				by ~{{ post.author }}~ on {{ post.publish|date:"SHORT_DATE_FORMAT" }}
 			</div>
 		</div>
 	</div>
@@ -118,7 +127,6 @@
 			{% endif %}	
 		{% endfor %}
 	</div>
-	<a href="{% url 'blog:blog-list' %}" class="btn btn-outline-light" role="button">Go Back</a>
 
 </div>
 {% endblock %}

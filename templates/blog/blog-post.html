@@ -1,9 +1,41 @@
+{% load humanize %}
+
 <div class="col-lg-4 col-md-6 mb-4">
   <div class="h-100 p-5 bg-dark rounded-3">
-    <h1 class="text-lightest">{{ post.title }}</h1>
+    <h3 class="text-lightest">{{ post.title|safe|truncatechars:75 }}</h3>
     <div class="text-light">
-      {{ post.content|safe|truncatechars:250 }}
+      {{ post.overview|safe|truncatechars:250 }}
     </div>
-    <a href="{{ post.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <a href="{{ post.get_absolute_url }}" class="btn btn-outline-light mt-3" role="button">View more</a>
+      </div>
+
+      <div class="mt-2">
+        {% if request.user in post.likes.all %}
+          <p class="text-secondary d-inline fs-5">{{post.likes.all|length|intcomma}}</p>
+          <a href="{% url 'blog:likes' post.id %}" class="fs-5 me-2 text-danger" data-mdb-toggle="tooltip" title="Dislike">
+            <i class="fa-solid fa-heart"></i>
+          </span></a>
+        {% else %}
+          <p class="text-secondary d-inline fs-5">{{post.likes.all|length|intcomma}}</p>
+          <a href="{% url 'blog:likes' post.id %}" class="fs-5 me-2 text-secondary" data-mdb-toggle="tooltip" title="Like">
+            <i class="fa-regular fa-heart"></i>
+          </span></a>
+        {% endif %}
+
+        {% if request.user in post.favorites.all %}
+        <a href="{% url 'blog:favorites' post.id %}" class="fs-5 text-light" data-mdb-toggle="tooltip" title="Remove this post from bookmarks">
+            <i class="fa-solid fa-bookmark"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'blog:favorites' post.id %}" class="fs-5 text-secondary" data-mdb-toggle="tooltip" title="Add this post to bookmarks">
+            <i class="fa-regular fa-bookmark"></i>
+        </a>
+        {% endif %}
+			</div>
+
+			</div>
   </div>
 </div>

@@ -35,7 +35,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     overview = models.TextField(max_length=500, default="")
-    blog_series = models.ForeignKey(Series, on_delete=models.PROTECT, default=1)
+    series = models.ForeignKey(Series, on_delete=models.PROTECT, default=1)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
     publish = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey (User, on_delete=models.CASCADE, related_name='blog_posts')
@@ -56,6 +56,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+## Comment Model
 class Comment(models.Model):
     post = models.ForeignKey(Post , on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(get_user_model() , on_delete=models.CASCADE)

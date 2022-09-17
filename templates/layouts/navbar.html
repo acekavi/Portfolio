@@ -47,7 +47,7 @@
           <a class="nav-link {% if request.path == blog_url %} active {%endif%}" href="{{ blog_url }}">Blog</a>
         </li>
 
-        {% if navBlog or catList.navBlog %}
+        {% if navBlog %}
         <!-- Dropdown -->
           <li class="nav-item dropdown">
             <a
@@ -78,7 +78,7 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
 
-      {% if navBlog or catList.navBlog %}
+      {% if navBlog %}
         <form class="d-flex input-group w-auto" method="GET" action="{% url 'blog:search-list' %}">
           <input
             type="search"
@@ -125,13 +125,13 @@
               <a class="dropdown-item" href="{% url 'accounts:edit' %}">Edit Profile</a>
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}?next={{ request.path | urlencode }}">Logout</a>
             </li>
 
           {% else %}
             
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
+              <a class="dropdown-item" href="{% url 'accounts:login' %}?next={{ request.path | urlencode }}">Login</a>
             </li>
             <li>
               <a class="dropdown-item" href="{% url 'accounts:register' %}">Signup</a>

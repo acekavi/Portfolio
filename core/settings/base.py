@@ -13,11 +13,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.humanize',
+
     'storages',
     'ckeditor',
     'ckeditor_uploader',
     'admin_honeypot',
-
     'blog',
     'accounts',
 ]

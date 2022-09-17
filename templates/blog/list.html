@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ pageTitle|capfirst }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-decoration-none text-white">
+		<i class="fa-solid fa-signs-post fa-xl me-2"></i>
+		<span class="fs-4 text-uppercase">{{ pageTitle|capfirst }}</span>
+	</div>
+	</header>
+
+	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+	<div class="container-fluid py-5">
+		<h1 class="display-5 fw-bold text-lightest">{{ heading }}</h1>
+		<p class="col-md-8 fs-5 text-light quote">{{ secondary|capfirst }}</p>
+	</div>
+	</div>
+
+	<div class="row align-items-md-stretch">
+		{% for post in posts %}
+			{% include 'blog/blog-post.html' %}
+		{% endfor %}
+	</div>
+
+	{% if page_obj.has_next or page_obj.has_previous %}
+	<div class="col-lg-12 col-md-12 d-flex justify-content-center">
+		<div class="btn-group shadow-0" role="group" aria-label="Pagination">
+			{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}" type="button" class="btn btn-light" data-mdb-color="dark">
+						<i class="fa-solid fa-angle-left"></i>
+					</a>
+				{% else %}
+					<a type="button" class="btn btn-light disabled" data-mdb-color="dark" aria-disabled="true">
+						<i class="fa-solid fa-angle-left"></i>
+					</a>
+				{% endif %}
+
+				{% for i in paginator.page_range %} 
+					{% if page_obj.number == i %}
+						<a type="button" class="btn btn-light active" data-mdb-color="dark">
+							{{ i }}<span class="visually-hidden">(current)</span>
+						</a>
+						{% else %}
+						<a href="?page={{ i }}" type="button" class="btn btn-light" data-mdb-color="dark">
+							{{ i }}
+						</a>
+					{% endif %}
+				{% endfor %}
+
+				{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}" type="button" class="btn btn-light" data-mdb-color="dark">
+					<i class="fa-solid fa-angle-right"></i>
+				</a>
+				{% else %}
+				<a type="button" class="btn btn-light disabled" data-mdb-color="dark" aria-disabled="true">
+					<i class="fa-solid fa-angle-right"></i>
+				</a>
+				{% endif %}
+		</div>
+	</div>
+	{% endif %} 
+</div>
+{% endblock %}

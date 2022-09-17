@@ -80,7 +80,7 @@ def account_register(request):
         'title' : "Registration successful",
         'context' : "Account activation link has been sent to your email. Please activate your account within 7 days. Thank you!",
       }
-      return render(request, 'registration/feedback.html', data)
+      return render(request, 'layouts/feedback.html', data)
 
   else:
       registerForm = RegistrationForm()

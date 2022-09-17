@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @media (max-width: 991.98px) {
   .offcanvas-collapse {
     position: fixed;
@@ -72,4 +73,17 @@
 
 body {
   overflow-x: hidden;
+}
+
+.quote::after {
+  font-family: Arial;
+  content: "”";
+  font-weight: 600;
+  font-size: larger;
+}
+.quote::before {
+  font-family: Arial;
+  content: "“";
+  font-weight: 600;
+  font-size: larger;
 }/*# sourceMappingURL=main.css.map */
