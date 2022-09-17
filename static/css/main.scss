@@ -1,4 +1,11 @@
-$importantColor: #f00034;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro:wght@200;300;400;600&family=Square+Peg&family=Zilla+Slab:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+$accentFont: 'Zilla Slab', serif;
+$primaryFont: 'Source Sans Pro', sans-serif;
+$secondaryFont: 'Playfair Display', serif;
+
+$primaryColor: rgb(255, 255, 255);
+$secondaryColor: rgba(255, 255, 255, 0.47);
 
 @import 'navbar';
 @import 'blog';

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;1,400;1,500;1,600&family=Source+Sans+Pro:wght@200;300;400;600&family=Square+Peg&family=Zilla+Slab:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap");
 @media (max-width: 991.98px) {
   .offcanvas-collapse {
     position: fixed;
@@ -18,6 +19,49 @@
     transform: translateX(-100%);
   }
 }
+.IconContainer {
+  cursor: pointer;
+  width: 25px;
+}
+.IconContainer:hover .hambars {
+  width: 25px;
+  background-color: rgb(255, 255, 255);
+}
+
+.hambars {
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.47);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.hambars:nth-child(1) {
+  width: 8px;
+}
+
+.hambars:nth-child(2) {
+  width: 20px;
+}
+
+.hambars:nth-child(3) {
+  width: 15px;
+}
+
+.change .hambars:nth-child(1) {
+  width: 25px;
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.change .hambars:nth-child(2) {
+  width: 25px;
+  opacity: 0;
+}
+
+.change .hambars:nth-child(3) {
+  width: 25px;
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
 .details-banner-img {
   height: 50vh;
   background-position: center;
@@ -86,4 +130,16 @@ body {
   content: "“";
   font-weight: 600;
   font-size: larger;
+}
+
+.monofont {
+  font-family: "Zilla Slab", serif !important;
+}
+
+.classfont {
+  font-family: "Source Sans Pro", sans-serif !important;
+}
+
+.decorativefont {
+  font-family: "Playfair Display", serif !important;
 }/*# sourceMappingURL=main.css.map */

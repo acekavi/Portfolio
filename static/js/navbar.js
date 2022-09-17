@@ -8,3 +8,10 @@
 //     $(element).children("input, textarea").eq(0).insertBefore($(element).children("label").eq(0))
 //   })
 // })
+
+$(document).ready(function () {
+  $(".IconContainer").click(function () {
+    $(".IconContainer").toggleClass("change");
+    $(".navLinks").toggle("slow");
+  });
+});

@@ -18,4 +18,45 @@
     }
   }
 
-  
+.IconContainer {
+  cursor: pointer;
+  &:hover {
+    .hambars {
+      width: 25px;
+      background-color: $primaryColor;
+    }
+  }
+  width: 25px;
+}
+
+.hambars {
+  height: 2px;
+  background-color: $secondaryColor;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.hambars:nth-child(1) {
+  width: 8px;
+}
+.hambars:nth-child(2) {
+  width: 20px;
+}
+.hambars:nth-child(3) {
+  width: 15px;
+}
+
+.change .hambars:nth-child(1) {
+  width: 25px;
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.change .hambars:nth-child(2) {
+  width: 25px;
+  opacity: 0;
+}
+
+.change .hambars:nth-child(3) {
+  width: 25px;
+  transform: rotate(45deg) translate(-5px, -6px);
+}

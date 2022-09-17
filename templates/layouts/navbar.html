@@ -9,31 +9,31 @@
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
+    <div class="IconContainer navbar-toggler"
       type="button"
       data-mdb-toggle="collapse"
       data-mdb-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
+      aria-label="Toggle navigation">
+        <div class="hambars"></div>
+        <div class="hambars"></div>
+        <div class="hambars"></div>
+    </div>
 
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <div class="navbar-brand ms-2 ms-md-5">
         <img
           src="{% static 'images/logo/Sign.png' %}"
-          height="15"
+          height="30"
           alt="acekavi Logo"
           loading="lazy"
         />
-      </a>
+      </div>
       <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav text-uppercase monofont">
         <li class="nav-item">
           <a class="nav-link {% if request.path == home_url %} active {%endif%}" href="{{ home_url }}">Home</a>
         </li>

@@ -45,3 +45,15 @@ body{
     font-size: larger;
   }
 }
+
+.monofont{
+  font-family: $accentFont !important;
+}
+
+.classfont{
+  font-family: $primaryFont !important;
+}
+
+.decorativefont{
+  font-family: $secondaryFont !important;
+}
