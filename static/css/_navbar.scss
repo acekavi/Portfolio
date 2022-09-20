@@ -29,6 +29,12 @@
   width: 25px;
 }
 
+.active{
+  border-bottom: 1px solid aliceblue;
+  padding-bottom: 5%;
+}
+
+
 .hambars {
   height: 2px;
   background-color: $secondaryColor;

@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.static import serve
-from .views import HomePageView
 from . import settings
 from django.utils.translation import gettext_lazy as _
 
@@ -28,7 +27,7 @@ urlpatterns = [
 
 	path("user/", include('accounts.urls', namespace="accounts")),
 	path('user/', include('django.contrib.auth.urls')),
-	path('', HomePageView.as_view(), name="homepage"),
+	path('', include('base.urls')),
 	path('blog/', include('blog.urls', namespace='blog')),
 ]
 

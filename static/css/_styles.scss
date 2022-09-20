@@ -50,10 +50,12 @@ body{
   font-family: $accentFont !important;
 }
 
-.classfont{
-  font-family: $primaryFont !important;
-}
-
 .decorativefont{
   font-family: $secondaryFont !important;
+}
+
+.grafitifont{
+  // font-family: 'Jura', sans-serif;
+  // font-weight: 600;
+  font-family: "ITC Mendoza Roman";
 }

@@ -1,0 +1,36 @@
+.homeBtns {
+  a {
+    border-right: 2px $primaryColor solid;
+    color: $secondaryColor;
+    border-radius: 0;
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+
+    &:hover {
+      color: $primaryColor;
+      border-radius: 0;
+      border: none;
+      border-right: 2px $primaryColor solid;
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+.client-logo{
+  filter: grayscale(1);
+}
+
+.alteredBG{
+  // clip-path: polygon(90% 0, 100% 20%, 100% 100%, 90% 100%, 50% 0);
+  background-position: center right !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.full-height{
+  height: 75vh;
+}

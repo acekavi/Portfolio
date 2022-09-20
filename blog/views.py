@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import DetailView
 from .forms import NewCommentForm
 from .models import Category, Post, Comment
@@ -19,8 +20,10 @@ class blogList(ListView):
         data['navBlog'] = True
         data["pageTitle"] = 'All Posts'
         data["heading"] = "Join the journey"
-        data["secondary"] = "Take what you can, Leave what you will"
+        data["secondary"] = "Wisdom means to choose now what will make sense later"
+        data["author"] = "Tracee Ellis Ross"
         return data
+
 
 class CategoryListView(ListView):
     template_name = 'blog/list.html'
@@ -36,8 +39,10 @@ class CategoryListView(ListView):
         data['navBlog'] = True
         data["pageTitle"] = self.request.resolver_match.kwargs['slug']
         data["heading"] = f"All about {self.request.resolver_match.kwargs['slug']}"
-        data["secondary"] = "Keep learning everyday"
+        data["secondary"] = "Live every day like it is your last and learn everyday like you will live forever"
+        data["author"] = "Mahatma Gandhi"
         return data
+
 
 class SearchListView(ListView):
     template_name = 'blog/list.html'
@@ -65,8 +70,8 @@ class SearchListView(ListView):
         data['navBlog'] = True
         data["pageTitle"] = "Search"
         data["heading"] = heading
-        data["secondary"] = "Find something that works for you"
-
+        data["secondary"] = "Quit everything until you find something that you just cannot quit"
+        data["author"] = "Bobcat Goldthwait"
         return data
 
 
@@ -100,6 +105,7 @@ class BlogDetail(DetailView):
             new_comment.save()
             return redirect(self.request.path_info)
 
+# context processor
 def category_list(request):
     category_list = Category.objects.exclude(name='default')
     context = {
@@ -110,18 +116,19 @@ def category_list(request):
 
 @login_required
 def favorites(request, id):
+    print(get_current_site(request))
     post = get_object_or_404(Post, id=id)
-    if post.favorites.filter(id=request.user.id).exists():
+    if request.user in post.favorites.all():
         post.favorites.remove(request.user)
     else:
         post.favorites.add(request.user)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return HttpResponseRedirect(reverse('blog:blog-detail', kwargs={ 'slug': post.slug }))
 
 @login_required
 def likes(request, id):
     post = get_object_or_404(Post, id=id)
-    if post.likes.filter(id=request.user.id).exists():
+    if request.user in post.likes.all():
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return HttpResponseRedirect(reverse('blog:blog-detail', kwargs={ 'slug': post.slug }))

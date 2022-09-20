@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ 'projects'|capfirst }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-decoration-none text-white">
+    <i class="fa-solid fa-list-check fa-xl me-2"></i>
+		<span class="fs-4 text-uppercase monofont">{{ 'projects'|capfirst }}</span>
+	</div>
+	</header>
+
+	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+	<div class="container-fluid py-5">
+    <h1 class="display-3 fw-bold text-lightest decorativefont">That thing I'm good at</h1>
+    <figure class=" col-md-8 ">
+      <blockquote class="blockquote">
+        <p class="fs-5 text-light quote monofont">If you’re good at something, never do it for free</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        The Joker <cite title="Source Title">(Heath Ledger)</cite>
+      </figcaption>
+    </figure>
+	</div>
+	</div>
+
+</div>
+{% endblock %}

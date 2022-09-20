@@ -1,0 +1,185 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ 'Home'|capfirst }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <header class="pb-3 mb-4 border-bottom">
+    <div class="d-flex align-items-center text-decoration-none text-white">
+      <i class="fa-solid fa-house-chimney fa-lg me-2"></i>
+      <span class="fs-4 text-uppercase monofont">Home</span>
+    </div>
+  </header>
+
+  <div class="p-5 mb-4 bg-darker rounded-3 shadow-4 full-height">
+    <div class="container-fluid py-5 d-flex flex-column align-items-center justify-content-center">
+
+      <div class="pt-5 w-100 text-center pb-4 border-bottom">
+        <h1 class="grafitifont display-4 text-lightest text-uppercase">Avishka Kavinda</h1>
+        <h1 class="lead h5 text-lighter">Computer Science Undergraduate<span class="text-danger">;</span> </h1>  
+      </div>
+      
+      <figure class="w-100 mt-4 text-center">
+        <blockquote class="blockquote">
+          <p class="fs-5 text-light quote monofont">This world has too many colors in it. But I prefer it in black & white</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          Anonymous <cite title="Source Title"></cite>
+        </figcaption>
+      </figure>
+
+      <div class="btn-group btn-lg shadow-0 monofont mt-3" role="group" aria-label="Resume and projects">
+        <a href="{% static 'files/avishka_kavinda.pdf'%}" download="Avishka.pdf" type="button" class="fw-bold text-light btn btn-outline-light rounded-0 border-0 border-end" data-mdb-color="dark">Resume</a>
+        <a href="{% url 'base:projects' %}" type="button" class="fw-bold text-light btn btn-outline-light rounded-0 border-0 border-end" data-mdb-color="dark">Projects</a>
+        <a href="{% url 'blog:blog-list' %}" type="button" class="fw-bold text-light btn btn-outline-light rounded-0 border-0" data-mdb-color="dark">Blog</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+    <h1 class="grafitifont display-5 text-lighter fw-bold text-uppercase border-bottom text-center py-4">My Work</h1>
+    <div class="container-fluid py-5 text-muted">
+      <p class="lead">Hard-working Computer Science major currently attending University of Westminster, with
+        5 years of work experience as a freelancer. Aiming to leverage a proven knowledge of web
+        designing, programming, and data analytics to successfully help a dying world. Frequently praised as a creative thinker by my peers, I can be relied upon to help
+        your company achieve its goals.</p>
+      
+        <h3 class="text-light fw-bold text-uppercase text-center py-5 monofont">Clients</h3>
+        <div class="d-flex justify-content-around">
+          <div class="text-center "><img
+            src="{% static 'images/logo/client2.png' %}"
+            height="100"
+            alt="Dust's Logo"
+            loading="lazy"
+            class="client-logo"
+          />
+            <blockquote class="text-center lead">Dust Studios</blockquote></div>
+            
+            <div class="text-center "><img
+              src="{% static 'images/logo/client1.png' %}"
+              height="100"
+              alt="ruky's Logo"
+              loading="lazy"
+              class="client-logo"
+            />
+              <blockquote class="lead">Ruky's Delight Spices</blockquote></div>
+            
+            <div class="text-center "><img
+          src="{% static 'images/logo/client3.png' %}"
+          height="100"
+          alt="Shinigami's Logo"
+          loading="lazy"
+          class="client-logo"
+        />
+          <blockquote class="text-center lead">ShinigamiYT</blockquote></div>  
+          </div>
+    </div>
+  </div>
+
+
+  <div class="p-5 bg-darker rounded-3 shadow-4 alteredBG"
+    style="background-image: url('{% static '/images/pic/homeHero.jpg'%}')"
+  >
+    <h1 class="grafitifont display-5 fw-bold text-uppercase border-bottom border-dark text-center py-4 text-dark">Contact</h1>
+    <div class="container-fluid py-5 d-md-flex justify-content-around">
+
+      <div class="col-md-7 col-12 mx-auto">
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" action="">
+          {% csrf_token %}
+          <!-- Name input -->
+          <div class="form-outline mb-4 bg-light">
+            <input type="text" id="name-input" class="form-control" name="name" required/>
+            <label class="form-label" for="name-input">Name</label>
+          </div>
+        
+          <!-- Subject input -->
+          <div class="form-outline mb-4 bg-light">
+            <input type="text" id="subject-input" class="form-control" name="subject" required/>
+            <label class="form-label" for="subject-input">Subject</label>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4 bg-light">
+            <input type="email" id="email-input" class="form-control" name="email" required/>
+            <label class="form-label" for="email-input">Email address</label>
+          </div>
+        
+          <div class="input-group mb-3 bg-light">
+            <span class="input-group-text" id="linkedin-username">www.linkedin.com/in/</span>
+            <input
+              type="text"
+              class="form-control"
+              id="linkedin-input"
+              aria-describedby="linkedin-username"
+              name="linkedin"
+              required/>
+          </div>
+
+          <!-- Message input -->
+          <div class="form-outline mb-4 bg-light">
+            <textarea class="form-control" id="message-input" rows="4" name="message" required></textarea>
+            <label class="form-label" for="message-input">Message</label>
+          </div>
+        
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-dark btn-block">Send</button>
+        </form>
+      </div>
+
+      <div class="socials col-md-3 col-10 ms-2">
+        <div class="d-flex flex-row flex-md-column justify-content-around h-100 align-items-start m-4 m-md-0 w-100">
+          <!-- Facebook -->
+          <a class="btn btn-dark btn-floating" href="https://www.facebook.com/acekavi/" role="button"
+          data-mdb-toggle="tooltip" data-mdb-placement="right" title="Facebook">
+            <i class="fab mt-2 mb-2 fa-facebook-f fa-lg"></i>
+          </a>
+
+          <!-- Instagram -->
+          <a class="btn btn-dark btn-floating" href="https://www.instagram.com/acekavi/" role="button"
+          data-mdb-toggle="tooltip" data-mdb-placement="right" title="Instagram">
+            <i class="fab mt-2 mb-2 fa-instagram fa-lg"></i>
+          </a>
+
+          <!-- Behance -->
+          <a class="btn btn-dark btn-floating" href="https://www.behance.net/acekavi" role="button"
+          data-mdb-toggle="tooltip" data-mdb-placement="right" title="Behance">
+            <i class="fab mt-2 mb-2 fa-behance fa-lg"></i>
+          </a>
+
+          <!-- Linked In -->
+          <a class="btn btn-dark btn-floating" href="https://www.linkedin.com/in/acekavi" role="button"
+          data-mdb-toggle="tooltip" data-mdb-placement="right" title="linkedin">
+            <i class="fab mt-2 mb-2 fa-linkedin fa-lg"></i>
+          </a>
+
+          <!-- github -->
+          <a class="btn btn-dark btn-floating" href="https://github.com/acekavi" role="button"
+          data-mdb-toggle="tooltip" data-mdb-placement="right" title="github">
+            <i class="fab mt-2 mb-2 fa-github fa-lg"></i>
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.btn-close').click(function(){
+      $(this).closest('.alert').remove();
+  });
+  });
+  
+</script
+{% endblock %}

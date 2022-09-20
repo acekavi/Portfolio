@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ 'designs'|capfirst }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+	<div class="d-flex align-items-center text-decoration-none text-white">
+    <i class="fa-solid fa-pen-nib fa-xl me-2"></i>
+		<span class="fs-4 text-uppercase monofont">{{ 'designs'|capfirst }}</span>
+	</div>
+	</header>
+
+	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+	<div class="container-fluid py-5">
+    <h1 class="display-3 fw-bold text-lightest decorativefont">True Passion</h1>
+    <figure class=" col-md-8 ">
+      <blockquote class="blockquote">
+        <p class="fs-5 text-light quote monofont">Learn the rules like a pro, so you can break them like an artist</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Pablo Picasso <cite title="Source Title"></cite>
+      </figcaption>
+    </figure>
+	</div>
+	</div>
+
+</div>
+{% endblock %}

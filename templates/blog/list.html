@@ -13,7 +13,14 @@
 	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
 	<div class="container-fluid py-5">
 		<h1 class="display-3 fw-bold text-lightest decorativefont">{{ heading }}</h1>
-		<p class="col-md-8 fs-5 text-light quote monofont">{{ secondary|capfirst }}</p>
+		<figure class=" col-md-8 ">
+      <blockquote class="blockquote">
+        <p class="fs-5 text-light quote monofont">{{ secondary|capfirst }}</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        {{ author }}</cite>
+      </figcaption>
+    </figure>
 	</div>
 	</div>
 

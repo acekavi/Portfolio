@@ -1,5 +1,7 @@
-{% url 'homepage' as home_url %}
-{% comment %} {% url 'contact' as contact_url %} {% endcomment %}
+{% url 'base:homepage' as home_url %}
+{% url 'base:projects' as projects_url %}
+{% url 'base:designs' as designs_url %}
+
 {% url 'blog:blog-list' as blog_url %}
 {% url 'blog:category-list' as category_url %}
 {% load static %}
@@ -24,7 +26,7 @@
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
-      <div class="navbar-brand ms-2 ms-md-5">
+      <div class="navbar-brand ms-2 ms-md-3">
         <img
           src="{% static 'images/logo/Sign.png' %}"
           height="30"
@@ -33,15 +35,15 @@
         />
       </div>
       <!-- Left links -->
-      <ul class="navbar-nav text-uppercase monofont">
+      <ul class="navbar-nav monofont">
         <li class="nav-item">
           <a class="nav-link {% if request.path == home_url %} active {%endif%}" href="{{ home_url }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.path == blogList_url %} active {%endif%}" href="/projects">Projects</a>
+          <a class="nav-link {% if request.path == projects_url %} active {%endif%}" href="{{ projects_url }}">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.path == blogList_url %} active {%endif%}" href="/designs">Designs</a>
+          <a class="nav-link {% if request.path == designs_url %} active {%endif%}" href="{{ designs_url }}">Designs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if request.path == blog_url %} active {%endif%}" href="{{ blog_url }}">Blog</a>

@@ -26,11 +26,11 @@
         {% endif %}
 
         {% if request.user in post.favorites.all %}
-        <a href="{% url 'blog:favorites' post.id %}" class="fs-5 text-light" data-mdb-toggle="tooltip" title="Remove this post from bookmarks">
+        <a href="{% url 'blog:favorites' post.id %}" class="fs-6 text-info" data-mdb-toggle="tooltip" title="Remove this post from bookmarks">
             <i class="fa-solid fa-bookmark"></i>
         </a>
         {% else %}
-        <a href="{% url 'blog:favorites' post.id %}" class="fs-5 text-secondary" data-mdb-toggle="tooltip" title="Add this post to bookmarks">
+        <a href="{% url 'blog:favorites' post.id %}" class="fs-6 text-secondary" data-mdb-toggle="tooltip" title="Add this post to bookmarks">
             <i class="fa-regular fa-bookmark"></i>
         </a>
         {% endif %}
