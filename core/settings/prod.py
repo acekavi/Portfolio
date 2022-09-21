@@ -3,9 +3,9 @@ from .base import *
 
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = list(config('ALLOWED_HOSTS'))
+ALLOWED_HOSTS = ['.acekavi.me']
 
 ### AWS Settings
 AWS_ACCESS_KEY_ID           = config('AWS_ACCESS_KEY_ID')
@@ -35,3 +35,8 @@ DEFAULT_FILE_STORAGE        = 'core.utils.MediaStore'
 MEDIA_URL                   = f"https://{CLOUDFRONT_DOMAIN}/media/"
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+SECURE_HSTS_SECONDS = 2592000  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
