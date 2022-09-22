@@ -35,7 +35,8 @@
           <!-- Register buttons -->
           <div class="text-center">
             <p>Not a member?</p>
-            <p><a href="{% url 'accounts:register' %}">Register</a> or sign up with</p>
+            <p><a href="{% url 'accounts:register' %}">Register</a> 
+              {% comment %} or sign up with</p>
             <button type="button" class="btn btn-light btn-floating mx-1">
               <i class="fab fa-facebook-f"></i>
             </button>
@@ -50,7 +51,7 @@
         
             <button type="button" class="btn btn-light btn-floating mx-1">
               <i class="fab fa-github"></i>
-            </button>
+            </button> {% endcomment %}
           </div>
         {% endif %}
 
@@ -60,7 +61,8 @@
         <!-- Register buttons -->
         <div class="text-center">
           <p>Already a member?</p>
-          <p><a href="{% url 'accounts:login' %}">Login</a> or sign up with</p>
+          <p><a href="{% url 'accounts:login' %}">Login</a> 
+            {% comment %} or sign up with</p>
           <button type="button" class="btn btn-light btn-floating mx-1">
             <i class="fab fa-facebook-f"></i>
           </button>
@@ -75,7 +77,7 @@
       
           <button type="button" class="btn btn-light btn-floating mx-1">
             <i class="fab fa-github"></i>
-          </button>
+          </button> {% endcomment %}
         </div>
         {% endif %}
 
