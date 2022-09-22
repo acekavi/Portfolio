@@ -33,9 +33,9 @@ urlpatterns = [
 
 handler404 = 'admin_honeypot.views.handler404'
 
-if settings.dev.DEBUG:
-	urlpatterns += [
-		path(_('media/<path>'), serve, {
-			'document_root': settings.dev.MEDIA_ROOT
-		}),
-	]
+# if settings.dev.DEBUG:
+# 	urlpatterns += [
+# 		path(_('media/<path>'), serve, {
+# 			'document_root': settings.dev.MEDIA_ROOT
+# 		}),
+# 	]

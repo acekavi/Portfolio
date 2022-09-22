@@ -116,7 +116,6 @@ def category_list(request):
 
 @login_required
 def favorites(request, id):
-    print(get_current_site(request))
     post = get_object_or_404(Post, id=id)
     if request.user in post.favorites.all():
         post.favorites.remove(request.user)
