@@ -6,25 +6,25 @@ from django.views.generic.base import TemplateView
 from .forms import ContactForm
 from django.contrib import messages
 
+### Projects views
+class ProjectDetails(TemplateView):
 
-# class IndexView(TemplateView):
-
-#     template_name = "base/home.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # context['home_page'] = "active"
-#         return context
-
-class ProjectsView(TemplateView):
-
-    template_name = "base/projects.html"
+    template_name = "base/test.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['home_page'] = "active"
+        context['value'] = "1111111111111"
         return context
 
+class ProjectsView(TemplateView):
+
+    template_name = "base/test.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+### Designs views
 class DesignsView(TemplateView):
 
     template_name = "base/designs.html"
@@ -34,6 +34,16 @@ class DesignsView(TemplateView):
         # context['home_page'] = "active"
         return context
 
+class DesignDetails(TemplateView):
+
+    template_name = "base/designs.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['value'] = "2222222222222"
+        return context
+
+###### Home page
 def indexView(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
