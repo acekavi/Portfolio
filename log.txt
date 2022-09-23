@@ -1,0 +1,101 @@
+[33mcommit 1e9fc18db99cd5cde3aabe1799ec8dcb0acddacb[m[33m ([m[1;36mHEAD -> [m[1;32mremote[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Thu Sep 22 12:40:53 2022 +0530
+
+    reconfigure for prod
+
+[33mcommit 1c6a566380e12aeb824e2f509c4986ac52ae3d87[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Wed Sep 21 23:02:09 2022 +0530
+
+    Tweaking with production
+
+[33mcommit 6b3bb9c35107b82b865bbbac834816409e2f8cfc[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Wed Sep 21 21:56:38 2022 +0530
+
+    migrating to production
+
+[33mcommit de86c735772bb19053a36428b1726d2600a17931[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Wed Sep 21 21:43:18 2022 +0530
+
+    updated gitignore
+
+[33mcommit ec6c706997663921875de87fff7beb86668590a5[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Wed Sep 21 21:41:29 2022 +0530
+
+    removed statics
+
+[33mcommit 91d6da6ead35d58a862c19607e3748c3e4b19b30[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Tue Sep 20 13:48:02 2022 +0530
+
+    Before intergrating allauth to my site
+
+[33mcommit da88a10a3e54b9044f9dbfaaec8c5830f434e4ab[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Sat Sep 17 11:41:54 2022 +0530
+
+    Completed blog app and styling
+
+[33mcommit d106bbd25d58d726b6defd99c257c359428838c4[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Sat Sep 17 10:49:24 2022 +0530
+
+    Completed blog app completely
+
+[33mcommit 625e90cdb80ba1a6b0686a24869dd1445cebfd90[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Fri Sep 16 12:16:59 2022 +0530
+
+    Last commit before refreshing the db
+
+[33mcommit 1f0a815319d8769f57c11b8ac511a37bdd74353d[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Tue Sep 13 18:39:31 2022 +0530
+
+    Completed user authenticated system and refractored the code to be re usable
+
+[33mcommit e18fe32772d5e9c12a44608f01e33b4e6cff0ebd[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Thu Sep 8 21:12:11 2022 +0530
+
+    Restore point before modifying django auth
+
+[33mcommit 0bd7087a01fadfb2fbeaff5892dfa59ea53f1883[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Wed Sep 7 19:40:57 2022 +0530
+
+    Completed simple search function
+
+[33mcommit 314b0673809e14797acfb33970cc6ee86259c004[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Tue Sep 6 08:59:52 2022 +0530
+
+    before implementing reply comments function to the blog
+
+[33mcommit 4b58466d4c4448cd355911d5dd97a0b4c53b68ab[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Sat Sep 3 20:29:03 2022 +0530
+
+    Completed the blog application with basic functions and stylings
+
+[33mcommit 1e80ee3d6b07b8a91f650d64ee95bf7f61835861[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Sat Sep 3 08:01:45 2022 +0530
+
+    Configured ckeditor | A rich text editor for my blog posts
+
+[33mcommit 44c1c4775ad4013185f3f3aef2e37c6940d116bb[m
+Author: Avishka Kavinda <dfntlynotace@gmail.com>
+Date:   Fri Sep 2 21:14:10 2022 +0530
+
+    Boilerplate code after configuring aws s3 and RDS
+
+[33mcommit 84e50081eebdf0483af0187f3ec9f4fe49bb39da[m
+Author: Avishka Kavinda <45445179+acekavi@users.noreply.github.com>
+Date:   Fri Sep 2 15:02:57 2022 +0530
+
+    Initial commit
