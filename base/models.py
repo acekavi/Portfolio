@@ -1,3 +1,5 @@
+from email.policy import default
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -17,11 +19,14 @@ class Artwork(models.Model):
   title = models.CharField(max_length=250)
   slug = models.SlugField(max_length=250, unique_for_date='publish')
   description = models.TextField(max_length=500, default="")
+  thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
+  artFile = models.ImageField(upload_to='artworks/', default="artworks/default.jpg")
   prompt = models.TextField(max_length=500, default="", blank=True)
   style = models.ForeignKey(ArtStyle, on_delete=models.PROTECT, default=1)
   publish = models.DateTimeField(default=timezone.now)
   author = models.ForeignKey (User, on_delete=models.CASCADE, related_name='art_designer')
-  likes = models.ManyToManyField(User, related_name="Likes", default=None, blank=True)
+  likes = models.ManyToManyField(User, related_name="art_likes", default=None, blank=True)
+  behance = models.URLField(max_length=250, blank=True, null=True)
 
   def get_absolute_url(self):
         return reverse('base:designs-details', args=[self.slug])
@@ -31,11 +36,11 @@ class Artwork(models.Model):
 
 ## Comment Model
 class ArtComment(models.Model):
-  artwork = models.ForeignKey(Artwork , on_delete=models.CASCADE, related_name="comments")
+  artwork = models.ForeignKey(Artwork , on_delete=models.CASCADE, related_name="art_comments")
   author = models.ForeignKey(get_user_model() , on_delete=models.CASCADE)
   content = models.TextField()
   publish = models.DateTimeField(auto_now_add=True)
-  parent = models.ForeignKey('self' , null=True , blank=True , on_delete=models.CASCADE , related_name='replies')
+  parent = models.ForeignKey('self' , null=True , blank=True , on_delete=models.CASCADE , related_name='art_replies')
   status = models.BooleanField(default=True)
 
   class Meta:
@@ -73,9 +78,11 @@ class Project(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey (User, on_delete=models.CASCADE, related_name='project_dev')
     status = models.CharField(max_length=10, choices=options, default='draft')
+    github = models.URLField(max_length=250, blank=True, null=True)
+    demo = models.URLField(max_length=250, blank=True, null=True)
 
     objects = models.Manager()
-    postManager = ProjectManager()
+    projectManager = ProjectManager()
 
     def get_absolute_url(self):
         return reverse('base:project-details', args=[self.slug])

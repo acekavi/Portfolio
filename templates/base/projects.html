@@ -12,10 +12,10 @@
 
 	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
 	<div class="container py-5">
-    <h1 class="display-3 fw-bold text-lightest decorativefont text-center text-md-start">The things I've done</h1>
+    <h1 class="display-3 fw-bold text-lightest solidfont text-center text-md-start">The things I've made</h1>
     <figure class=" col-md-8 ">
       <blockquote class="blockquote">
-        <p class="fs-5 text-light quote monofont">If you’re good at something, never do it for free</p>
+        <p class="fs-4 text-light quote decorativefont">If you’re good at something, never do it for free</p>
       </blockquote>
       <figcaption class="blockquote-footer">
         The Joker <cite title="Source Title">(Heath Ledger)</cite>
@@ -24,5 +24,73 @@
 	</div>
 	</div>
 
+  <div class="row align-items-md-stretch">
+		{% for project in projects %}
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="h-100 p-5 bg-dark rounded-3">
+          <h3 class="text-lightest">{{ project.title|safe|truncatechars:75 }}</h3>
+          <div class="text-light">
+            {{ project.overview|safe|truncatechars:250 }}
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group my-3" role="group" aria-label="Project buttons">
+              <a href="{{ project.get_absolute_url }}" class="btn btn-outline-light" role="button">Details</a>
+              
+              {% if project.demo %}
+              <a href="{{ project.demo }}" class="btn btn-outline-light" role="button" target="_blank"
+							data-mdb-toggle="tooltip" title="View Demo"><i class="fa-solid fa-globe"></i></a>
+			        {% endif %}
+
+							{% if project.github %}
+              <a href="{{ project.github }}" class="btn btn-outline-light" role="button" target="_blank"
+							data-mdb-toggle="tooltip" title="View on Github"><i class="fa-brands fa-github"></i></a>
+			        {% endif %}
+
+            </div>
+        </div>
+      </div>
+		</div>
+		{% endfor %}
+	</div>
+
+  {% comment %} Pagination {% endcomment %}
+  {% if page_obj.has_next or page_obj.has_previous %}
+	<div class="col-lg-12 col-md-12 d-flex justify-content-center">
+		<div class="btn-group shadow-0" role="group" aria-label="Pagination">
+			{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}" type="button" class="btn btn-light" data-mdb-color="dark">
+						<i class="fa-solid fa-angle-left"></i>
+					</a>
+				{% else %}
+					<a type="button" class="btn btn-light disabled" data-mdb-color="dark" aria-disabled="true">
+						<i class="fa-solid fa-angle-left"></i>
+					</a>
+				{% endif %}
+
+				{% for i in paginator.page_range %} 
+					{% if page_obj.number == i %}
+						<a type="button" class="btn btn-light active" data-mdb-color="dark">
+							{{ i }}<span class="visually-hidden">(current)</span>
+						</a>
+						{% else %}
+						<a href="?page={{ i }}" type="button" class="btn btn-light" data-mdb-color="dark">
+							{{ i }}
+						</a>
+					{% endif %}
+				{% endfor %}
+
+				{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}" type="button" class="btn btn-light" data-mdb-color="dark">
+					<i class="fa-solid fa-angle-right"></i>
+				</a>
+				{% else %}
+				<a type="button" class="btn btn-light disabled" data-mdb-color="dark" aria-disabled="true">
+					<i class="fa-solid fa-angle-right"></i>
+				</a>
+				{% endif %}
+		</div>
+	</div>
+	{% endif %} 
 </div>
 {% endblock %}

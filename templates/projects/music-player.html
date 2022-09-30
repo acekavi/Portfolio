@@ -1,0 +1,52 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ project.title|capfirst }}{% endblock %}
+{% block content %}
+
+<div class="container py-4">
+  <div class="mb-4 rounded-3 details-banner-img"
+		style="background: url('https://source.unsplash.com/1600x500/?code')">
+	</div>
+
+  <header class="pb-3 mb-4 border-bottom d-flex justify-content-between text-white">
+		<div class="d-flex align-items-center text-decoration-none">
+			<span class="material-symbols-outlined fs-3 me-2">
+				<i class="fa-solid fa-list-check me-2"></i>
+			</span>
+			<span class="fs-4 text-uppercase monofont">{{ project.title }}</span>
+		</div>
+	</header>
+
+
+  <div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
+		<div class="container ">
+			<h5 class="display-6 fw-bold text-lightest">Overview</h5>
+			<p class="fs-5 text-light">{{ project.overview|safe|capfirst }}</p>
+			<hr>
+			
+      <div class="btn-group my-3" role="group" aria-label="Project buttons">
+        {% if project.demo %}
+        <a href="{{ project.demo }}" class="btn btn-outline-light" role="button" target="_blank"
+        data-mdb-toggle="tooltip" title="View Demo"><i class="fa-solid fa-globe"></i> Demo</a>
+        {% endif %}
+
+        {% if project.github %}
+        <a href="{{ project.github }}" class="btn btn-outline-light" role="button" target="_blank"
+        data-mdb-toggle="tooltip" title="View on Github"><i class="fa-brands fa-github"></i> github</a>
+        {% endif %}
+      </div>
+		</div>
+	</div>
+
+	<div class="p-5 mb-4 bg-darker rounded-3">
+		<div class="container">
+
+      {% comment %} Page content here! {% endcomment %}
+			
+			<div class="fs-6 text-lighter text-end">
+				by ~{{ project.author }}~ on {{ project.publish|date:"SHORT_DATE_FORMAT" }}
+			</div>
+		</div>
+	</div>
+  
+{% endblock %} 

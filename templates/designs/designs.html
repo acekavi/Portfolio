@@ -1,36 +1,36 @@
 {% extends "layouts/base.html" %} 
 {% load static %} 
-{% block title %}{{ pageTitle|capfirst }}{% endblock %}
+{% block title %}{{ 'designs'|capfirst }}{% endblock %}
 {% block content %}
 <div class="container py-4">
 	<header class="pb-3 mb-4 border-bottom">
-	<div class="d-flex align-items-center text-decoration-none text-white">
-		<i class="fa-solid fa-signs-post fa-xl me-2"></i>
-		<span class="fs-4 text-uppercase monofont">{{ pageTitle|capfirst }}</span>
-	</div>
+		<div class="d-flex align-items-center text-decoration-none text-white">
+			<i class="fa-solid fa-pen-nib fa-xl me-2"></i>
+			<span class="fs-4 text-uppercase monofont">{{ 'designs'|capfirst }}</span>
+		</div>
 	</header>
 
 	<div class="p-5 mb-4 bg-darker rounded-3 shadow-4">
-	<div class="container py-5">
-		<h1 class="display-3 fw-bold text-lightest solidfont">{{ heading }}</h1>
-		<figure class=" col-md-8 ">
-      <blockquote class="blockquote">
-        <p class="fs-4 text-light quote decorativefont">{{ secondary|capfirst }}</p>
-      </blockquote>
-      <figcaption class="blockquote-footer">
-        {{ author }}</cite>
-      </figcaption>
-    </figure>
-	</div>
+		<div class="container py-5">
+			<h1 class="display-3 fw-bold text-lightest solidfont text-center text-md-start">The things I wanna do</h1>
+			<figure class=" col-md-8 ">
+				<blockquote class="blockquote">
+					<p class="fs-4 text-light quote decorativefont">Learn the rules like a pro, so you can break them like an artist</p>
+				</blockquote>
+				<figcaption class="blockquote-footer">
+					Pablo Picasso <cite title="Source Title"></cite>
+				</figcaption>
+			</figure>
+		</div>
 	</div>
 
-	<div class="row align-items-md-stretch">
-		{% for post in posts %}
-			{% include 'blog/blog-post.html' %}
+  <div class="row align-items-md-stretch">
+		{% for design in designs %}
+			{% include 'designs/artwork.html' %}
 		{% endfor %}
 	</div>
 
-	{% if page_obj.has_next or page_obj.has_previous %}
+  {% if page_obj.has_next or page_obj.has_previous %}
 	<div class="col-lg-12 col-md-12 d-flex justify-content-center">
 		<div class="btn-group shadow-0" role="group" aria-label="Pagination">
 			{% if page_obj.has_previous %}
@@ -66,6 +66,6 @@
 				{% endif %}
 		</div>
 	</div>
-	{% endif %} 
+	{% endif %}
 </div>
 {% endblock %}

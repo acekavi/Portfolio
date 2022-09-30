@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;1,400;1,500;1,600&family=Square+Peg&family=Zilla+Slab:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jura:wght@500;600&display=swap');
-@import url(//db.onlinewebfonts.com/c/87ecffe673e64603bc5ac34c7b7eb611?family=ITC+Mendoza+Roman);
-
-$accentFont: 'Zilla Slab', serif;
-$secondaryFont: 'Playfair Display', serif;
+$monoFont: 'Zilla Slab', serif;
+$cursiveFont: 'Italianno', cursive;
+$headingsFont: 'Reem Kufi Fun', sans-serif;
 
 $primaryColor: rgb(255, 255, 255);
 $secondaryColor: rgba(255, 255, 255, 0.47);
@@ -13,4 +10,5 @@ $secondaryColor: rgba(255, 255, 255, 0.47);
 @import 'user';
 @import 'styles';
 @import 'home';
-
+@import 'designs';
+@import 'loader';

@@ -1,0 +1,122 @@
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{% block title %}{{ design.title }}{% endblock %}
+{% block content %}
+{% load humanize %}
+
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom d-flex justify-content-between text-white">
+		<div class="d-flex align-items-center text-decoration-none">
+			<span class="material-symbols-outlined fs-3 me-2">
+				<i class="fa-solid fa-pen-nib me-2"></i>
+			</span>
+			<span class="fs-4 text-uppercase monofont">{{ design.title }}</span>
+		</div>
+		<div class="me-3">
+			<div>
+				<p class="text-secondary d-inline fs-4">{{ design.likes.all|length|intcomma }}</p>
+			{% if request.user in design.likes.all %}
+				<a href="{% url 'base:design-likes' design.id %}" class="fs-4 me-4 text-danger" data-mdb-toggle="tooltip" title="Dislike">
+					<i class="fa-solid fa-heart"></i>
+				</span></a>
+			{% else %}
+				<a href="{% url 'base:design-likes' design.id %}" class="fs-4 me-4 text-secondary" data-mdb-toggle="tooltip" title="Like">
+					<i class="fa-regular fa-heart"></i>
+				</span></a>
+			{% endif %}
+
+			</div>
+		</div>
+	</header>
+
+  <div class="artwork-image">
+    <img src="{{design.artFile.url}}" class="img-fluid mx-auto d-block" alt="{{design.title}}" />
+  </div>
+
+	<div class="p-5 mb-4 bg-darker rounded-3">
+		<div class="container">
+			<div class="text-read ">
+				{{ design.description|safe }}
+			</div>
+
+      {% if design.style.name == 'AI' %}
+        <p class="">Promt - {{ design.prompt|safe }}</p>
+      {% endif %}
+			
+			<div class="fs-6 text-lighter text-end">
+				by ~{{ design.author }}~ on {{ design.publish|date:"SHORT_DATE_FORMAT" }}
+			</div>
+			{% if design.behance %}
+			<div class="d-grid">
+				<a href="{{ design.behance }}" class="btn btn-dark my-3" role="button">View on behance</a>
+			</div>
+			{% endif %}
+			
+		</div>
+	</div>
+
+
+	<div class="row justify-content-md-center">
+
+		<div class="col-md-8">
+			<h4 class="text-light">{% with comments.count as totalcomments %}Comment{{ totalcomments|pluralize }} ({{ totalcomments }}){% endwith %}</h4>
+			{% if user.is_authenticated %}
+			<form action="." method="POST" id="comment-form">
+				<label for="id_content" class="form-label text-light mt-3">Add new comment</label>
+				<div class="input-group mb-5">
+					{{ comment_form.content}}
+					<button class="btn btn-outline-light" type="submit" id="comment-btn" data-mdb-ripple-color="light">
+						Comment
+					</button>
+				</div>
+				{% csrf_token %}
+			</form>
+			{% else %} <h5 class="text-lighter py-3">You need to <a href="{% url 'accounts:login' %}">Login</a> to add comments</h5> 
+			{% endif %}
+
+
+		{% for comment in comments %}
+			{% if comment.is_parent %} 
+				<div class="card mb-3 p-3 bg-dark border-0">
+					<div class="p-2">
+						<p class="fs-5 text-light">{{ comment.content }}</p>
+						<div class="d-flex justify-content-between text-muted border-bottom fw-light">
+							<p>by @{{ comment.author }}</p>
+							<p>{{ comment.publish|timesince }} ago</p>
+						</div>
+					</div>
+					{% for reply in comment.children %}
+					<div class="p-2 ms-4">
+						<p class="fs-6 text-light">{{ reply.content }}</p>
+						<div class="d-flex justify-content-between text-muted border-bottom fw-light">
+							<p>by @{{ reply.author }}</p>
+							<p>{{ reply.publish|timesince }} ago</p>
+						</div>
+					</div>
+					{% endfor %}
+
+					<div class="mx-2">
+					{% if user.is_authenticated %}
+						<form action="." method="post" id="reply-form">
+							<div class="input-group my-3">
+								<span class="input-group-text border-0">Reply</span>
+								{{ comment_form.content}}
+								<button class="btn btn-outline-light" type="submit" id="comment-btn" data-mdb-ripple-color="light">
+									Reply
+								</button>
+							</div>
+							
+							<div class="input-group">
+								<input type="hidden" value="{{ comment.pk }}" name="parent">
+								{% csrf_token %}
+							</div>
+						</form>
+					{% endif %}
+					</div>
+			</div>
+			{% endif %}	
+		{% endfor %}
+	</div>
+
+</div>
+{% endblock %}

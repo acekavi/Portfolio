@@ -1,11 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView,ListView
 from .forms import NewCommentForm
 from .models import Category, Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
-from django.views.generic import ListView
 
 # Create your views here.
 class blogList(ListView):
@@ -99,7 +98,7 @@ class BlogDetail(DetailView):
                 try:
                     parent = comment_form.cleaned_data['parent']
                 except:
-                    parent=None
+                    parent = None
 
             new_comment = Comment(content=content , author = self.request.user , post=self.get_object() , parent=parent)
             new_comment.save()

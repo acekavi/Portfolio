@@ -1,0 +1,43 @@
+{% comment %} <div class="bg-image col-lg-4 col-md-6 g-0">
+  <a class="ripple" href="{{ design.get_absolute_url }}">
+    <img
+      src="{{design.artFile.url}}"
+      class="img-fluid"
+      alt="{{design.title}}"
+    />
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+      <div class="h-100 text-start">
+        <div class="d-flex justify-content-around w-100"> 
+          <h3 class="text-white mb-3 row">{{ design.title }}</h3>
+          <h5 class="text-light mb-3 row">{{ design.style }}</h5>
+        </div>
+
+        <div class=" w-100"> 
+          <p class="text-muted mb-3 fs-6">{{ design.description|safe|truncatechars:250 }}</p>
+        </div>
+      </div>
+    </div>
+  </a>
+</div> {% endcomment %}
+<div class="card bg-dark text-white shadow-1-strong col-6 col-md-3 g-0">
+  <a class="ripple text-lightest" href="{{ design.get_absolute_url }}">
+    <img
+        src="{% if design.thumbnail %}
+                {{design.thumbnail.url}}
+              {% else %}
+                {{design.artFile.url}}
+             {% endif %}"
+        class="card-img rounded-0"
+        alt="{{design.title}}"
+        style="filter: grayscale(100%); object-fit:cover;"
+        />
+    <div class="card-img-overlay show-on-hover rounded-0">
+      <h5 class="card-title">{{ design.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted bg-white fs-6 d-inline-block py-1 px-2">{{ design.style }}</h6>
+      <p class="card-text">
+        {{ design.description|safe|truncatechars:100 }}
+      </p>
+      <p class="card-text">{{ design.publish|date:"SHORT_DATE_FORMAT" }}</p>
+    </div>
+  </a>  
+</div>
