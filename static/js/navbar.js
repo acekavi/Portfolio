@@ -15,5 +15,7 @@ $(document).ready(function () {
     $(".IconContainer").toggleClass("change");
     $(".navLinks").toggle("slow");
   });
+
+  $("pre").addClass("bg-darkest text-lighter p-3");
 });
 

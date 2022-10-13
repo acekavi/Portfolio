@@ -47,14 +47,13 @@
 			<h5 class="display-6 fw-bold text-lightest">Overview</h5>
 			<p class="fs-5 text-light">{{ post.overview|capfirst }}</p>
 			<hr>
-			<p class="col-md-8 fs-5 text-light">Part of the <span class="fw-bold text-lighter">"{{ post.series|capfirst }}"</span> series</p>
-
+			<p class="col-md-8 fs-5 text-light decorativefont">Series - {{ post.series|capfirst }}</p>
 		</div>
 	</div>
 
 	<div class="p-5 mb-4 bg-darker rounded-3">
 		<div class="container">
-			<div class="text-read ">
+			<div class="text-read">
 				{{ post.content|safe }}
 			</div>
 
